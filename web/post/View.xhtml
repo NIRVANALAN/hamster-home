@@ -29,6 +29,45 @@
                     <h:outputText value="#{postController.selected.account}" title="#{bundle.ViewPostTitle_account}"/>
                 </h:panelGrid>
                 <br />
+                <h:dataTable value="#{postController.selected.commentCollection}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCommentTitle_content}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.content}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCommentTitle_commentTime}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.commentTime}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCommentTitle_account}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.account}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCommentTitle_post}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.post}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{commentController.prepareView}" value="#{bundle.ListCommentViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{commentController.prepareEdit}" value="#{bundle.ListCommentEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{commentController.destroy}" value="#{bundle.ListCommentDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+                <br />
                 <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
                 <br />
                 <br />
