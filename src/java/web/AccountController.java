@@ -29,6 +29,14 @@ public class AccountController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    public String verifyDynamic() {
+        if (ejbFacade.find(current.getUsername()).getPassword().equals(current.getPassword())) {
+            current = ejbFacade.find(current.getUsername());
+            return "index";
+        }
+        return "fail";
+    }
+
     public AccountController() {
     }
 

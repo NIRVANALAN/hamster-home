@@ -7,7 +7,8 @@
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        Welcome to HamsterHome,
+        <h:outputLabel value="#{accountController.selected.username}"/>
         <br />
         <h:link outcome="/account/List" value="Show All Account Items"/>
         <br />
@@ -22,6 +23,8 @@
         <h:link outcome="/receiver/List" value="Show All Receiver Items"/>
         <br />
         <h:link outcome="/selectedProduct/List" value="Show All SelectedProduct Items"/>
+        <br/>
+        <h:link outcome="login" value="login"/> 
     </h:body>
 
 
