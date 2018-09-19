@@ -32,8 +32,10 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
-    public List<Post> getPostOrderByPubTime() {
+    public List<Post> getPostOrderByPubTime(int [] range) {
         Query query = em.createNamedQuery("Post.findOrderByPubTimeDesc");
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1]-range[0]+1);
         List<Post> posts = query.getResultList();
         return posts;
     }

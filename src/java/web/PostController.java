@@ -30,14 +30,14 @@ public class PostController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public Post getLatestPost() {
-        List<Post> postsOrderBy = ejbFacade.getPostOrderByPubTime();
-        if (postsOrderBy.isEmpty()) {
-            return null;
-        } else {
-            return postsOrderBy.get(0);
-        }
-    }
+//    public Post getLatestPost() {
+//        List<Post> postsOrderBy = ejbFacade.getPostOrderByPubTime();
+//        if (postsOrderBy.isEmpty()) {
+//            return null;
+//        } else {
+//            return postsOrderBy.get(0);
+//        }
+//    }
 
     public Post getSelected() {
         if (current == null) {
@@ -63,7 +63,8 @@ public class PostController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[] {getPageFirstItem(),getPageFirstItem()+getPageSize()}));
                 }
             };
         }
