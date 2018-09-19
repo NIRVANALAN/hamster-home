@@ -95,3 +95,5 @@ nbdist/
 
 
 # End of https://www.gitignore.io/api/netbeans,jetbrains+all,visualstudiocode
+
+nbproject/
