@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewOrderFormTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_id}"/>
+                    <h:outputText value="#{orderFormController.selected.id}" title="#{bundle.ViewOrderFormTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_address}"/>
+                    <h:outputText value="#{orderFormController.selected.address}" title="#{bundle.ViewOrderFormTitle_address}"/>
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_quantity}"/>
+                    <h:outputText value="#{orderFormController.selected.quantity}" title="#{bundle.ViewOrderFormTitle_quantity}"/>
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_orderTime}"/>
+                    <h:outputText value="#{orderFormController.selected.orderTime}" title="#{bundle.ViewOrderFormTitle_orderTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_orderFormReceiver}"/>
+                    <h:outputText value="#{orderFormController.selected.orderFormReceiver}" title="#{bundle.ViewOrderFormTitle_orderFormReceiver}"/>
+                    <h:outputText value="#{bundle.ViewOrderFormLabel_orderFormSender}"/>
+                    <h:outputText value="#{orderFormController.selected.orderFormSender}" title="#{bundle.ViewOrderFormTitle_orderFormSender}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{orderFormController.destroyAndView}" value="#{bundle.ViewOrderFormDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewOrderFormEditLink}"/>
+                <br />
+                <h:commandLink action="#{orderFormController.prepareCreate}" value="#{bundle.ViewOrderFormCreateLink}" />
+                <br />
+                <h:commandLink action="#{orderFormController.prepareList}" value="#{bundle.ViewOrderFormShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewOrderFormIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

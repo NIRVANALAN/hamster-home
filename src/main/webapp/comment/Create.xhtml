@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCommentTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateCommentLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{commentController.selected.id}" title="#{bundle.CreateCommentTitle_id}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateCommentLabel_content}" for="content" />
+                    <h:inputText id="content" value="#{commentController.selected.content}" title="#{bundle.CreateCommentTitle_content}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_content}"/>
+                    <h:outputLabel value="#{bundle.CreateCommentLabel_pubTime}" for="pubTime" />
+                    <h:inputText id="pubTime" value="#{commentController.selected.pubTime}" title="#{bundle.CreateCommentTitle_pubTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateCommentLabel_commentAuthor}" for="commentAuthor" />
+                    <h:selectOneMenu id="commentAuthor" value="#{commentController.selected.commentAuthor}" title="#{bundle.CreateCommentTitle_commentAuthor}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_commentAuthor}">
+                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateCommentLabel_refPost}" for="refPost" />
+                    <h:selectOneMenu id="refPost" value="#{commentController.selected.refPost}" title="#{bundle.CreateCommentTitle_refPost}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_refPost}">
+                        <f:selectItems value="#{postController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{commentController.create}" value="#{bundle.CreateCommentSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{commentController.prepareList}" value="#{bundle.CreateCommentShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateCommentIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrderFormTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOrderFormEmpty}" rendered="#{orderFormController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{orderFormController.items.rowCount > 0}">
+                    <h:outputText value="#{orderFormController.pagination.pageFirstItem + 1}..#{orderFormController.pagination.pageLastItem + 1}/#{orderFormController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{orderFormController.previous}" value="#{bundle.Previous} #{orderFormController.pagination.pageSize}" rendered="#{orderFormController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{orderFormController.next}" value="#{bundle.Next} #{orderFormController.pagination.pageSize}" rendered="#{orderFormController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{orderFormController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_address}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.address}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_quantity}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantity}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_orderTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orderTime}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_orderFormReceiver}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orderFormReceiver}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderFormTitle_orderFormSender}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orderFormSender}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{orderFormController.prepareView}" value="#{bundle.ListOrderFormViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orderFormController.prepareEdit}" value="#{bundle.ListOrderFormEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orderFormController.destroy}" value="#{bundle.ListOrderFormDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{orderFormController.prepareCreate}" value="#{bundle.ListOrderFormCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOrderFormIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
