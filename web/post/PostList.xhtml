@@ -25,15 +25,9 @@
                     <h:dataTable value="#{postController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPostTitle_postPK_postId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.postPK.postId}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPostTitle_title}"/>
                             </f:facet>
-                            <h:outputText value="#{item.title}"/>
+                            <h:link value="#{item.title}" outcome="/post/View"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -61,9 +55,6 @@
                             </f:facet>
                             <h:commandLink action="#{postController.prepareView}" value="#{bundle.ListPostViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{postController.prepareEdit}" value="#{bundle.ListPostEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{postController.destroy}" value="#{bundle.ListPostDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
