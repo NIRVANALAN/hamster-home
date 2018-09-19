@@ -6,6 +6,7 @@ import web.util.PaginationHelper;
 import session.PostFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -29,7 +30,13 @@ public class PostController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public PostController() {
+    public Post getLatestPost() {
+        List<Post> postsOrderBy = ejbFacade.getPostOrderByPubTime();
+        if (postsOrderBy.isEmpty()) {
+            return null;
+        } else {
+            return postsOrderBy.get(0);
+        }
     }
 
     public Post getSelected() {
