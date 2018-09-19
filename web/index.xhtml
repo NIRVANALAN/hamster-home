@@ -29,6 +29,7 @@
         <h:form id="LogoutForm" rendered="#{accountController.selected.username!=null}">
             <h:commandLink action="#{accountController.logout}" value="Logout"/>
         </h:form>
+        <h:link value="MyPersonalPost" outcome="/post/MyPost" rendered="#{accountController.selected.username!=null}"/>
         <hr></hr>
         <h:link outcome="/post/PostList" value="Show all Post"/>
     </h:body>

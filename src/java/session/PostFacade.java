@@ -6,6 +6,7 @@
 package session;
 
 import entity.Post;
+import java.util.HashSet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,4 +41,14 @@ public class PostFacade extends AbstractFacade<Post> {
         return posts;
     }
     
+    
+    
+    public List<Post> getMyPosts(String accountUsername,int [] range){
+        Query query = em.createNamedQuery("Post.findByAccountusername");
+        query.setParameter("accountusername", accountUsername);
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1]-range[0]+1);    
+        List<Post> posts =query.getResultList();
+        return posts;
+    }
 }

@@ -19,13 +19,12 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("postController")
+@Named("myPostController")
 @SessionScoped
-public class PostController implements Serializable {
+public class MyPostController implements Serializable {
 
     private Post current;
     private DataModel items = null;
-    private DataModel MyPosts = null;
     @EJB
     private session.PostFacade ejbFacade;
     private PaginationHelper pagination;
@@ -64,7 +63,8 @@ public class PostController implements Serializable {
                 @Override
                 public DataModel createPageDataModel() {
 //                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+//                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().getMyPosts(getSelected().getPostPK().getAccountusername(), new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -172,6 +172,7 @@ public class PostController implements Serializable {
         return items;
     }
 
+
     private void recreateModel() {
         items = null;
     }
@@ -215,7 +216,7 @@ public class PostController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PostController controller = (PostController) facesContext.getApplication().getELResolver().
+            MyPostController controller = (MyPostController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "postController");
             return controller.getPost(getKey(value));
         }
