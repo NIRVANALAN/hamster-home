@@ -5,35 +5,24 @@
  */
 package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Comment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
-    , @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id")
-    , @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")
-    , @NamedQuery(name = "Comment.findByPubTime", query = "SELECT c FROM Comment c WHERE c.pubTime = :pubTime")})
+        @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
+        , @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id")
+        , @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")
+        , @NamedQuery(name = "Comment.findByPubTime", query = "SELECT c FROM Comment c WHERE c.pubTime = :pubTime")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -133,5 +122,5 @@ public class Comment implements Serializable {
     public String toString() {
         return "cn.mhtt1123.entity.Comment[ id=" + id + " ]";
     }
-    
+
 }

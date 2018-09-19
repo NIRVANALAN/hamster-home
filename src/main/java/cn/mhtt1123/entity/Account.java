@@ -5,38 +5,27 @@
  */
 package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
-    , @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")
-    , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
-    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
-    , @NamedQuery(name = "Account.findByRegisterTime", query = "SELECT a FROM Account a WHERE a.registerTime = :registerTime")})
+        @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+        , @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")
+        , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
+        , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
+        , @NamedQuery(name = "Account.findByRegisterTime", query = "SELECT a FROM Account a WHERE a.registerTime = :registerTime")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -197,5 +186,5 @@ public class Account implements Serializable {
     public String toString() {
         return "cn.mhtt1123.entity.Account[ id=" + id + " ]";
     }
-    
+
 }

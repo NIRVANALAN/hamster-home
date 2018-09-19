@@ -5,36 +5,25 @@
  */
 package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "OrderForm")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderForm.findAll", query = "SELECT o FROM OrderForm o")
-    , @NamedQuery(name = "OrderForm.findById", query = "SELECT o FROM OrderForm o WHERE o.id = :id")
-    , @NamedQuery(name = "OrderForm.findByAddress", query = "SELECT o FROM OrderForm o WHERE o.address = :address")
-    , @NamedQuery(name = "OrderForm.findByQuantity", query = "SELECT o FROM OrderForm o WHERE o.quantity = :quantity")
-    , @NamedQuery(name = "OrderForm.findByOrderTime", query = "SELECT o FROM OrderForm o WHERE o.orderTime = :orderTime")})
+        @NamedQuery(name = "OrderForm.findAll", query = "SELECT o FROM OrderForm o")
+        , @NamedQuery(name = "OrderForm.findById", query = "SELECT o FROM OrderForm o WHERE o.id = :id")
+        , @NamedQuery(name = "OrderForm.findByAddress", query = "SELECT o FROM OrderForm o WHERE o.address = :address")
+        , @NamedQuery(name = "OrderForm.findByQuantity", query = "SELECT o FROM OrderForm o WHERE o.quantity = :quantity")
+        , @NamedQuery(name = "OrderForm.findByOrderTime", query = "SELECT o FROM OrderForm o WHERE o.orderTime = :orderTime")})
 public class OrderForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -150,5 +139,5 @@ public class OrderForm implements Serializable {
     public String toString() {
         return "cn.mhtt1123.entity.OrderForm[ id=" + id + " ]";
     }
-    
+
 }

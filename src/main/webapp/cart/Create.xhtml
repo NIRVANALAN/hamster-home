@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateCartTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateCartLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{cartController.selected.id}" title="#{bundle.CreateCartTitle_id}" required="true" requiredMessage="#{bundle.CreateCartRequiredMessage_id}"/>
-                    <h:outputLabel value="#{bundle.CreateCartLabel_quantity}" for="quantity" />
-                    <h:inputText id="quantity" value="#{cartController.selected.quantity}" title="#{bundle.CreateCartTitle_quantity}" required="true" requiredMessage="#{bundle.CreateCartRequiredMessage_quantity}"/>
-                    <h:outputLabel value="#{bundle.CreateCartLabel_cartOwner}" for="cartOwner" />
-                    <h:selectOneMenu id="cartOwner" value="#{cartController.selected.cartOwner}" title="#{bundle.CreateCartTitle_cartOwner}" required="true" requiredMessage="#{bundle.CreateCartRequiredMessage_cartOwner}">
-                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateCartLabel_cartProduct}" for="cartProduct" />
-                    <h:selectOneMenu id="cartProduct" value="#{cartController.selected.cartProduct}" title="#{bundle.CreateCartTitle_cartProduct}" required="true" requiredMessage="#{bundle.CreateCartRequiredMessage_cartProduct}">
-                        <f:selectItems value="#{productController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{cartController.create}" value="#{bundle.CreateCartSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{cartController.prepareList}" value="#{bundle.CreateCartShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateCartIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+<ui:composition template="/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="#{bundle.CreateCartTitle}"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:panelGroup id="messagePanel" layout="block">
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+        </h:panelGroup>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{bundle.CreateCartLabel_id}" for="id"/>
+                <h:inputText id="id" value="#{cartController.selected.id}" title="#{bundle.CreateCartTitle_id}"
+                             required="true" requiredMessage="#{bundle.CreateCartRequiredMessage_id}"/>
+                <h:outputLabel value="#{bundle.CreateCartLabel_quantity}" for="quantity"/>
+                <h:inputText id="quantity" value="#{cartController.selected.quantity}"
+                             title="#{bundle.CreateCartTitle_quantity}" required="true"
+                             requiredMessage="#{bundle.CreateCartRequiredMessage_quantity}"/>
+                <h:outputLabel value="#{bundle.CreateCartLabel_cartOwner}" for="cartOwner"/>
+                <h:selectOneMenu id="cartOwner" value="#{cartController.selected.cartOwner}"
+                                 title="#{bundle.CreateCartTitle_cartOwner}" required="true"
+                                 requiredMessage="#{bundle.CreateCartRequiredMessage_cartOwner}">
+                    <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
+                </h:selectOneMenu>
+                <h:outputLabel value="#{bundle.CreateCartLabel_cartProduct}" for="cartProduct"/>
+                <h:selectOneMenu id="cartProduct" value="#{cartController.selected.cartProduct}"
+                                 title="#{bundle.CreateCartTitle_cartProduct}" required="true"
+                                 requiredMessage="#{bundle.CreateCartRequiredMessage_cartProduct}">
+                    <f:selectItems value="#{productController.itemsAvailableSelectOne}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <br/>
+            <h:commandLink action="#{cartController.create}" value="#{bundle.CreateCartSaveLink}"/>
+            <br/>
+            <br/>
+            <h:commandLink action="#{cartController.prepareList}" value="#{bundle.CreateCartShowAllLink}"
+                           immediate="true"/>
+            <br/>
+            <br/>
+            <h:link outcome="/index" value="#{bundle.CreateCartIndexLink}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>
