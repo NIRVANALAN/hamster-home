@@ -27,7 +27,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPostTitle_title}"/>
                             </f:facet>
-                            <h:link value="#{item.title}" outcome="/post/View"/>
+                            <h:commandLink value="#{item.title}" action="#{postController.prepareView}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -39,22 +39,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPostTitle_content}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.content}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPostTitle_account}"/>
                             </f:facet>
                             <h:outputText value="#{item.account}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{postController.prepareView}" value="#{bundle.ListPostViewLink}"/>
-                            <h:outputText value=" "/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
