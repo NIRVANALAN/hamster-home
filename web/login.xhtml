@@ -15,12 +15,12 @@
         <h:form id="loginForm">
             <p:panelGrid columns="3" >
             <h:outputLabel value="#{bundle.CreateAccountLabel_username}" for="username"/>
-            <h:inputText id="username" value="#{accountController.selected.username}" title="#{bundle.UsernameTitle}"
+            <h:inputText id="username" value="#{accountController.selected.username}" title="#{bundle.CreateAccountTitle_username}"
                          required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_username}"/>
             <p:message for="username"/>
 
             <h:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password"/>
-            <h:inputSecret id="password" value="#{accountController.selected.password}" title="#{bundle.PasswordTitle}"
+            <h:inputSecret id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}"
                          required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_password}"/>
             <p:message for="password"/>
 

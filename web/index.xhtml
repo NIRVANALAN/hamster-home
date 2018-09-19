@@ -25,8 +25,10 @@
         <br />
         <h:link outcome="/selectedProduct/List" value="Show All SelectedProduct Items"/>
         <br/>
-        <h:link outcome="login" value="login"/> 
-        <br/>
+        <h:link outcome="login" value="login" rendered="#{accountController.selected.username==null}"/> 
+        <h:form id="LogoutForm" rendered="#{accountController.selected.username!=null}">
+            <h:commandLink action="#{accountController.logout}" value="Logout"/>
+        </h:form>
         <hr></hr>
         <h:link outcome="/post/PostList" value="Show all Post"/>
     </h:body>
