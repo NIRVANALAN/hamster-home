@@ -192,6 +192,14 @@ public class AccountController implements Serializable {
         return ejbFacade.find(id);
     }
 
+    public String verify() {
+        if (ejbFacade.find(current.getId()).getPassword().equals(current.getPassword())) {
+            current = ejbFacade.find(current.getId());
+            return "index";
+        }
+        return "fail";
+    }
+
     @FacesConverter(forClass = Account.class)
     public static class AccountControllerConverter implements Converter {
 
