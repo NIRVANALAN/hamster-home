@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrderForm.findAll", query = "SELECT o FROM OrderForm o"),
-    @NamedQuery(name = "OrderForm.findByOrderID", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.orderID = :orderID"),
+    @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime"),
     @NamedQuery(name = "OrderForm.findByFee", query = "SELECT o FROM OrderForm o WHERE o.fee = :fee"),
     @NamedQuery(name = "OrderForm.findByReceiveraddress", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiveraddress = :receiveraddress"),
     @NamedQuery(name = "OrderForm.findByReceiverphoneno", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverphoneno = :receiverphoneno"),
@@ -53,8 +54,8 @@ public class OrderForm implements Serializable {
         this.orderFormPK = orderFormPK;
     }
 
-    public OrderForm(String orderID, String receiveraddress, String receiverphoneno, String receiverAccountusername) {
-        this.orderFormPK = new OrderFormPK(orderID, receiveraddress, receiverphoneno, receiverAccountusername);
+    public OrderForm(Date createTime, String receiveraddress, String receiverphoneno, String receiverAccountusername) {
+        this.orderFormPK = new OrderFormPK(createTime, receiveraddress, receiverphoneno, receiverAccountusername);
     }
 
     public OrderFormPK getOrderFormPK() {

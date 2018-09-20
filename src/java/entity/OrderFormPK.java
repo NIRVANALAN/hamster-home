@@ -6,9 +6,12 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,9 +24,9 @@ public class OrderFormPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "orderID")
-    private String orderID;
+    @Column(name = "create_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -43,19 +46,19 @@ public class OrderFormPK implements Serializable {
     public OrderFormPK() {
     }
 
-    public OrderFormPK(String orderID, String receiveraddress, String receiverphoneno, String receiverAccountusername) {
-        this.orderID = orderID;
+    public OrderFormPK(Date createTime, String receiveraddress, String receiverphoneno, String receiverAccountusername) {
+        this.createTime = createTime;
         this.receiveraddress = receiveraddress;
         this.receiverphoneno = receiverphoneno;
         this.receiverAccountusername = receiverAccountusername;
     }
 
-    public String getOrderID() {
-        return orderID;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getReceiveraddress() {
@@ -85,7 +88,7 @@ public class OrderFormPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (orderID != null ? orderID.hashCode() : 0);
+        hash += (createTime != null ? createTime.hashCode() : 0);
         hash += (receiveraddress != null ? receiveraddress.hashCode() : 0);
         hash += (receiverphoneno != null ? receiverphoneno.hashCode() : 0);
         hash += (receiverAccountusername != null ? receiverAccountusername.hashCode() : 0);
@@ -99,7 +102,7 @@ public class OrderFormPK implements Serializable {
             return false;
         }
         OrderFormPK other = (OrderFormPK) object;
-        if ((this.orderID == null && other.orderID != null) || (this.orderID != null && !this.orderID.equals(other.orderID))) {
+        if ((this.createTime == null && other.createTime != null) || (this.createTime != null && !this.createTime.equals(other.createTime))) {
             return false;
         }
         if ((this.receiveraddress == null && other.receiveraddress != null) || (this.receiveraddress != null && !this.receiveraddress.equals(other.receiveraddress))) {
@@ -116,7 +119,7 @@ public class OrderFormPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.OrderFormPK[ orderID=" + orderID + ", receiveraddress=" + receiveraddress + ", receiverphoneno=" + receiverphoneno + ", receiverAccountusername=" + receiverAccountusername + " ]";
+        return "entity.OrderFormPK[ createTime=" + createTime + ", receiveraddress=" + receiveraddress + ", receiverphoneno=" + receiverphoneno + ", receiverAccountusername=" + receiverAccountusername + " ]";
     }
     
 }

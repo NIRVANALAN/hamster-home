@@ -15,8 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateOrderFormLabel_orderFormPK_orderID}" for="orderFormPK_orderID" />
-                    <h:inputText id="orderFormPK_orderID" value="#{orderFormController.selected.orderFormPK.orderID}" title="#{bundle.CreateOrderFormTitle_orderFormPK_orderID}" required="true" requiredMessage="#{bundle.CreateOrderFormRequiredMessage_orderFormPK_orderID}"/>
+                    <h:outputLabel value="#{bundle.CreateOrderFormLabel_orderFormPK_createTime}" for="orderFormPK_createTime" />
+                    <h:inputText id="orderFormPK_createTime" value="#{orderFormController.selected.orderFormPK.createTime}" title="#{bundle.CreateOrderFormTitle_orderFormPK_createTime}" required="true" requiredMessage="#{bundle.CreateOrderFormRequiredMessage_orderFormPK_createTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateOrderFormLabel_fee}" for="fee" />
                     <h:inputText id="fee" value="#{orderFormController.selected.fee}" title="#{bundle.CreateOrderFormTitle_fee}" />
                     <h:outputLabel value="#{bundle.CreateOrderFormLabel_receiver}" for="receiver" />

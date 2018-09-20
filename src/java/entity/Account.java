@@ -80,14 +80,8 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "create_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Collection<Comment> commentCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Collection<Post> postCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Collection<SelectedProduct> selectedProductCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Collection<Receiver> receiverCollection;
 
@@ -175,33 +169,6 @@ public class Account implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
-    }
-
-    @XmlTransient
-    public Collection<Comment> getCommentCollection() {
-        return commentCollection;
-    }
-
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
-    }
-
-    @XmlTransient
-    public Collection<Post> getPostCollection() {
-        return postCollection;
-    }
-
-    public void setPostCollection(Collection<Post> postCollection) {
-        this.postCollection = postCollection;
-    }
-
-    @XmlTransient
-    public Collection<SelectedProduct> getSelectedProductCollection() {
-        return selectedProductCollection;
-    }
-
-    public void setSelectedProductCollection(Collection<SelectedProduct> selectedProductCollection) {
-        this.selectedProductCollection = selectedProductCollection;
     }
 
     @XmlTransient

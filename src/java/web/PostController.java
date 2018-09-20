@@ -56,7 +56,7 @@ public class PostController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(3) {
 
                 @Override
                 public int getItemsCount() {
@@ -87,20 +87,20 @@ public class PostController implements Serializable {
     public String prepareCreate() {
         current = new Post();
         current.setPostPK(new entity.PostPK());
-        selectedItemIndex = -1; 
+        selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            
+
             FacesContext context = FacesContext.getCurrentInstance();
             ELContext eLContext = context.getELContext();
             AccountController accountController = (AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
             current.setAccount(accountController.getSelected());
 //            current.getPostPK().setAccountusername(current.getAccount().getUsername());
             current.getPostPK().setAccountusername(accountController.getSelected().getUsername());
-            
+
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PostCreated"));
             return prepareCreate();
@@ -192,13 +192,13 @@ public class PostController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "PostList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "PostList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

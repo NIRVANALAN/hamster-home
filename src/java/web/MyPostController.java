@@ -197,13 +197,13 @@ public class MyPostController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "MyPost";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "MyPost";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

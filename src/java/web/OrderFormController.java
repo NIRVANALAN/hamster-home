@@ -18,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+
 @Named("orderFormController")
 @SessionScoped
 public class OrderFormController implements Serializable {
 
+
     private OrderForm current;
     private DataModel items = null;
-    @EJB
-    private session.OrderFormFacade ejbFacade;
+    @EJB private session.OrderFormFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -56,7 +57,7 @@ public class OrderFormController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -69,7 +70,7 @@ public class OrderFormController implements Serializable {
     }
 
     public String prepareView() {
-        current = (OrderForm) getItems().getRowData();
+        current = (OrderForm)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -96,7 +97,7 @@ public class OrderFormController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (OrderForm) getItems().getRowData();
+        current = (OrderForm)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -116,7 +117,7 @@ public class OrderFormController implements Serializable {
     }
 
     public String destroy() {
-        current = (OrderForm) getItems().getRowData();
+        current = (OrderForm)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -150,14 +151,14 @@ public class OrderFormController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -200,7 +201,7 @@ public class OrderFormController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = OrderForm.class)
+    @FacesConverter(forClass=OrderForm.class)
     public static class OrderFormControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
@@ -211,7 +212,7 @@ public class OrderFormController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            OrderFormController controller = (OrderFormController) facesContext.getApplication().getELResolver().
+            OrderFormController controller = (OrderFormController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "orderFormController");
             return controller.getOrderForm(getKey(value));
         }
@@ -220,7 +221,7 @@ public class OrderFormController implements Serializable {
             entity.OrderFormPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
             key = new entity.OrderFormPK();
-            key.setOrderID(values[0]);
+            key.setCreateTime(java.sql.Date.valueOf(values[0]));
             key.setReceiveraddress(values[1]);
             key.setReceiverphoneno(values[2]);
             key.setReceiverAccountusername(values[3]);
@@ -229,7 +230,7 @@ public class OrderFormController implements Serializable {
 
         String getStringKey(entity.OrderFormPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getOrderID());
+            sb.append(value.getCreateTime());
             sb.append(SEPARATOR);
             sb.append(value.getReceiveraddress());
             sb.append(SEPARATOR);
@@ -248,7 +249,7 @@ public class OrderFormController implements Serializable {
                 OrderForm o = (OrderForm) object;
                 return getStringKey(o.getOrderFormPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + OrderForm.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+OrderForm.class.getName());
             }
         }
 
