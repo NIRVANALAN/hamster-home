@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReceiverViewDlg" widgetVar="ReceiverViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewReceiverTitle}">
+            <h:form id="ReceiverViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{receiverController.selected != null}">
+                        <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_address}"/>
+                        <h:outputText value="#{receiverController.selected.receiverPK.address}" title="#{bundle.ViewReceiverTitle_receiverPK_address}"/>
+                        <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_phoneno}"/>
+                        <h:outputText value="#{receiverController.selected.receiverPK.phoneno}" title="#{bundle.ViewReceiverTitle_receiverPK_phoneno}"/>
+                        <h:outputText value="#{bundle.ViewReceiverLabel_nickname}"/>
+                        <h:outputText value="#{receiverController.selected.nickname}" title="#{bundle.ViewReceiverTitle_nickname}"/>
+                        <h:outputText value="#{bundle.ViewReceiverLabel_account}"/>
+                        <h:outputText value="#{receiverController.selected.account}" title="#{bundle.ViewReceiverTitle_account}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ReceiverViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

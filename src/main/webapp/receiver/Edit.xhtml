@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReceiverEditDlg" widgetVar="ReceiverEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditReceiverTitle}">
+            <h:form id="ReceiverEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{receiverController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditReceiverLabel_receiverPK_address}" for="receiverPK_address" />
+                        <p:inputText id="receiverPK_address" value="#{receiverController.selected.receiverPK.address}" title="#{bundle.EditReceiverTitle_receiverPK_address}" required="true" requiredMessage="#{bundle.EditReceiverRequiredMessage_receiverPK_address}"/>
+                        <p:outputLabel value="#{bundle.EditReceiverLabel_receiverPK_phoneno}" for="receiverPK_phoneno" />
+                        <p:inputText id="receiverPK_phoneno" value="#{receiverController.selected.receiverPK.phoneno}" title="#{bundle.EditReceiverTitle_receiverPK_phoneno}" required="true" requiredMessage="#{bundle.EditReceiverRequiredMessage_receiverPK_phoneno}"/>
+                        <p:outputLabel value="#{bundle.EditReceiverLabel_nickname}" for="nickname" />
+                        <p:inputText id="nickname" value="#{receiverController.selected.nickname}" title="#{bundle.EditReceiverTitle_nickname}" required="true" requiredMessage="#{bundle.EditReceiverRequiredMessage_nickname}"/>
+                        <p:outputLabel value="#{bundle.EditReceiverLabel_account}" for="account" />
+                        <p:selectOneMenu id="account" value="#{receiverController.selected.account}" required="true" requiredMessage="#{bundle.EditReceiverRequiredMessage_account}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
+                                           var="accountItem"
+                                           itemValue="#{accountItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{receiverController.update}" value="#{bundle.Save}" update="display,:ReceiverListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReceiverEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReceiverEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

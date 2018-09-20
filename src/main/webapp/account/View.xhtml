@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AccountViewDlg" widgetVar="AccountViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAccountTitle}">
+            <h:form id="AccountViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{accountController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAccountLabel_username}"/>
+                        <h:outputText value="#{accountController.selected.username}" title="#{bundle.ViewAccountTitle_username}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_password}"/>
+                        <h:outputText value="#{accountController.selected.password}" title="#{bundle.ViewAccountTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_email}"/>
+                        <h:outputText value="#{accountController.selected.email}" title="#{bundle.ViewAccountTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_country}"/>
+                        <h:outputText value="#{accountController.selected.country}" title="#{bundle.ViewAccountTitle_country}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_city}"/>
+                        <h:outputText value="#{accountController.selected.city}" title="#{bundle.ViewAccountTitle_city}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_gender}"/>
+                        <h:outputText value="#{accountController.selected.gender}" title="#{bundle.ViewAccountTitle_gender}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_photo}"/>
+                        <h:outputText value="#{accountController.selected.photo}" title="#{bundle.ViewAccountTitle_photo}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_signiture}"/>
+                        <h:outputText value="#{accountController.selected.signiture}" title="#{bundle.ViewAccountTitle_signiture}"/>
+                        <h:outputText value="#{bundle.ViewAccountLabel_createDate}"/>
+                        <h:outputText value="#{accountController.selected.createDate}" title="#{bundle.ViewAccountTitle_createDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AccountViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

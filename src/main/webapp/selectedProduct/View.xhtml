@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SelectedProductViewDlg" widgetVar="SelectedProductViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSelectedProductTitle}">
+            <h:form id="SelectedProductViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{selectedProductController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSelectedProductLabel_productNum}"/>
+                        <h:outputText value="#{selectedProductController.selected.productNum}" title="#{bundle.ViewSelectedProductTitle_productNum}"/>
+                        <h:outputText value="#{bundle.ViewSelectedProductLabel_account}"/>
+                        <h:outputText value="#{selectedProductController.selected.account}" title="#{bundle.ViewSelectedProductTitle_account}"/>
+                        <h:outputText value="#{bundle.ViewSelectedProductLabel_product}"/>
+                        <h:outputText value="#{selectedProductController.selected.product}" title="#{bundle.ViewSelectedProductTitle_product}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SelectedProductViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

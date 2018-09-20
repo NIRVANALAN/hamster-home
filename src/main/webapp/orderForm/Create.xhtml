@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrderFormCreateDlg" widgetVar="OrderFormCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrderFormTitle}">
+            <h:form id="OrderFormCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{orderFormController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateOrderFormLabel_orderFormPK_createTime}" for="orderFormPK_createTime" />
+                        <p:calendar id="orderFormPK_createTime" pattern="MM/dd/yyyy HH:mm:ss" value="#{orderFormController.selected.orderFormPK.createTime}" title="#{bundle.EditOrderFormTitle_orderFormPK_createTime}" required="true" requiredMessage="#{bundle.EditOrderFormRequiredMessage_orderFormPK_createTime}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateOrderFormLabel_fee}" for="fee" />
+                        <p:inputText id="fee" value="#{orderFormController.selected.fee}" title="#{bundle.CreateOrderFormTitle_fee}" />
+                        <p:outputLabel value="#{bundle.CreateOrderFormLabel_receiver}" for="receiver" />
+                        <p:selectOneMenu id="receiver" value="#{orderFormController.selected.receiver}" required="true" requiredMessage="#{bundle.EditOrderFormRequiredMessage_receiver}">
+                            <f:selectItems value="#{receiverController.itemsAvailableSelectOne}"
+                                           var="receiverItem"
+                                           itemValue="#{receiverItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{orderFormController.create}" value="#{bundle.Save}" update="display,:OrderFormListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrderFormCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrderFormCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
