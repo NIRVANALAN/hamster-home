@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -18,6 +20,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import session.AccountFacade;
 
 @Named("myPostController")
 @SessionScoped
@@ -27,6 +30,13 @@ public class MyPostController implements Serializable {
     private DataModel items = null;
     @EJB
     private session.PostFacade ejbFacade;
+    @EJB
+    private session.AccountFacade accountFacade;
+    
+    public AccountFacade getAccountFacade() {
+        return accountFacade;
+    }
+
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -62,9 +72,12 @@ public class MyPostController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    ELContext eLContext = context.getELContext();
+                    AccountController accountController = (AccountController)eLContext.getELResolver().getValue(eLContext,null,"accountController");
 //                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
 //                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                    return new ListDataModel(getFacade().getMyPosts(getSelected().getPostPK().getAccountusername(), new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().getMyPosts(accountController.getSelected().getUsername(), new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -171,7 +184,6 @@ public class MyPostController implements Serializable {
         }
         return items;
     }
-
 
     private void recreateModel() {
         items = null;
