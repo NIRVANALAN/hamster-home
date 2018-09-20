@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "OrderForm.findByFee", query = "SELECT o FROM OrderForm o WHERE o.fee = :fee")
     , @NamedQuery(name = "OrderForm.findByReceiveraddress", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiveraddress = :receiveraddress")
     , @NamedQuery(name = "OrderForm.findByReceiverphoneno", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverphoneno = :receiverphoneno")
-    , @NamedQuery(name = "OrderForm.findByReceiverAccountusername", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverAccountusername = :receiverAccountusername")})
+    , @NamedQuery(name = "OrderForm.findByReceiverAccountusername", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverAccountusername = :receiverAccountusername")
+    , @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime")})
 public class OrderForm implements Serializable {
 
     private static final long serialVersionUID = 1L;

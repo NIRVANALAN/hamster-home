@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
     , @NamedQuery(name = "Post.findByPubTime", query = "SELECT p FROM Post p WHERE p.pubTime = :pubTime")
     , @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")
-    , @NamedQuery(name = "Post.findByAccountusername", query = "SELECT p FROM Post p WHERE p.postPK.accountusername = :accountusername")})
+    , @NamedQuery(name = "Post.findByAccountusername", query = "SELECT p FROM Post p WHERE p.postPK.accountusername = :accountusername ORDER BY p.pubTime DESC")
+    , @NamedQuery(name = "Post.findOrderByPubTimeDesc",query = "SELECT p from Post p ORDER BY p.pubTime DESC")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
