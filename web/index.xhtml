@@ -11,7 +11,8 @@
         <h:outputLabel value=" "/>
         <h:outputLabel value="#{accountController.selected.username}"/>
         <br/>
-        <h:panelGroup layout="block" rendered="#{accountController.selected.username eq 'admin'}">
+        <!--h:panelGroup layout="block" rendered="#{accountController.selected.username eq 'admin'}"-->
+        <h:panelGroup layout="block" >
             <h:link outcome="/account/List" value="Show All Account Items" />
             <br/>
             <h:link outcome="/comment/List" value="Show All Comment Items" />
