@@ -6,9 +6,11 @@
 package cn.mhtt1123.session;
 
 import cn.mhtt1123.eneity.Post;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,19 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
+    public List<Post> getPostOrderByPubTime(int[] range) {
+        Query query = em.createNamedQuery("Post.findOrderByPubTimeDesc");
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1] - range[0] + 1);
+        return query.getResultList();
+    }
+
+    public List<Post> getMyPosts(String accountUsername,int[] range){
+        Query query = em.createNamedQuery("Post.findByAccountusername");
+        query.setParameter("accountusername", accountUsername);
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1] - range[0] + 1);    
+        return query.getResultList();
+    }
+
 }
