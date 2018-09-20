@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
     <div style="margin-right: auto;margin-left: auto">
-        <h:link outcome="index" value="index" style="margin-left: 1000px; margin-right: auto"/>
+        <h:link outcome="/index" value="index" style="margin-left: 1000px; margin-right: auto"/>
     </div>
     <h2>
         Hi! Welcome to Hamster Home. Please login:
@@ -30,7 +30,7 @@
             <p:message for="password"/>
         </p:panelGrid>
         <br/>
-        <h:commandButton value="Login" action="#{accountController.verify}"/>
+        <h:commandButton value="login" action="#{accountController.verify}"/>
         <h:commandButton type="reset" value="reset"/>
     </h:form>
 </h:body>
