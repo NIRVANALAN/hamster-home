@@ -32,6 +32,37 @@ public class SelectedProductController implements Serializable {
     public SelectedProductController() {
     }
 
+    public void billingByUser(Account account) {
+        System.out.println(account.getUsername());
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        OrderFormController ofc = (OrderFormController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "orderFormController");
+        ReceiverController rc = (ReceiverController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "receiverController");
+        Receiver r = rc.getByUserName(account.getUsername());
+        ofc.createOrder(r, ejbFacade.getTotalOfUser(account.getUsername()));
+
+    }
+    
+    public void addOneByUser(Account account, Product product) {
+        current = new SelectedProduct();
+        current.setAccount(account);
+        current.setProduct(product);
+        current.setProductNum(1);
+        //current.setSelectedProductPK(new SelectedProductPK());
+        current.setSelectedProductPK(new SelectedProductPK());
+        System.out.println(current.getProduct().getProductId());
+        current.getSelectedProductPK().setAccountusername(current.getAccount().getUsername());
+        current.getSelectedProductPK().setProductproductId(current.getProduct().getProductId());
+        try {
+            getFacade().create(current);
+        }catch(Exception e) {
+            current.setProductNum(current.getProductNum()+1);
+            System.out.println("addOneSame");
+            update();
+        }
+        
+    }
+
     public SelectedProduct getSelected() {
         if (current == null) {
             current = new SelectedProduct();

@@ -9,6 +9,9 @@ import entity.SelectedProduct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import java.util.List;
 
 /**
  *
@@ -27,6 +30,17 @@ public class SelectedProductFacade extends AbstractFacade<SelectedProduct> {
 
     public SelectedProductFacade() {
         super(SelectedProduct.class);
+    }
+
+    public int getTotalOfUser(String username) {
+        int sum = 0;
+        Query query = em.createNamedQuery("SelectedProduct.findByAccountusername");
+        query.setParameter("accountusername", username);
+        List<SelectedProduct> result = query.getResultList();
+        for (SelectedProduct r : result) {
+            sum+=r.getProductNum()*r.getProduct().getProductPrice();
+        }
+        return sum;
     }
     
 }

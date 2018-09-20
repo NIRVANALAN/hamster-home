@@ -32,6 +32,27 @@ public class ProductController implements Serializable {
     public ProductController() {
     }
 
+    public String addByUser(String username) {
+        current = (Product) getItems().getRowData();
+        System.out.println(username);
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        //AccountController ac = (AccountController) elContext.getELResolver().getValue(elContext, null, "accountController");
+        AccountController act = (AccountController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "accountController");
+        SelectedProductController spc = (SelectedProductController) context.getApplication().getELResolver().getValue(elContext, null, "selectedProductController");
+        Account a = act.getAccount(username);  
+        System.out.println(a.getUsername());
+        try {
+            spc.addOneByUser(a, current);
+        }catch(EJBException e) {
+            System.out.println("Add one more same");
+        }finally {
+            current.setRemainingQuantity(current.getRemainingQuantity()-1);
+            update();
+            return "List";  
+        }
+    }
+
     public Product getSelected() {
         if (current == null) {
             current = new Product();

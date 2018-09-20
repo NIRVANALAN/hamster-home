@@ -1,6 +1,8 @@
 package web;
 
 import entity.OrderForm;
+import entity.OrderFormPK;
+import entity.Receiver;
 import web.util.JsfUtil;
 import web.util.PaginationHelper;
 import session.OrderFormFacade;
@@ -31,6 +33,19 @@ public class OrderFormController implements Serializable {
     private int selectedItemIndex;
 
     public OrderFormController() {
+    }
+
+    public void createOrder(Receiver r, int sum) {
+        current = new OrderForm();
+        current.setOrderFormPK(new OrderFormPK());
+        current.setReceiver(r);
+        current.getOrderFormPK().setReceiveraddress(current.getReceiver().getReceiverPK().getAddress());
+        current.getOrderFormPK().setReceiverAccountusername(current.getReceiver().getReceiverPK().getAccountusername());
+        current.getOrderFormPK().setReceiverphoneno(current.getReceiver().getReceiverPK().getPhoneno());
+        System.out.println(current.getReceiver().getNickname());
+        current.setFee(BigInteger.valueOf(sum));
+        getFacade().create(current);
+        update();
     }
 
     public OrderForm getSelected() {

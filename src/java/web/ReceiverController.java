@@ -32,6 +32,15 @@ public class ReceiverController implements Serializable {
     public ReceiverController() {
     }
 
+    public Receiver getByUserName(String username) {
+        return ejbFacade.getByUserName(username);
+//        System.out.println(r.getAccount().getUsername());
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        ELContext elContext = context.getELContext();
+//        OrderFormController ofc = (OrderFormController) elContext.getELResolver().getValue(elContext, null, "orderFormController");
+//        ofc.createOrder(r, 10);
+    }
+
     public Receiver getSelected() {
         if (current == null) {
             current = new Receiver();
