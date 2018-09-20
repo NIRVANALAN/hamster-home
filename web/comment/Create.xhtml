@@ -17,18 +17,6 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateCommentLabel_content}" for="content" />
                     <h:inputText id="content" value="#{commentController.selected.content}" title="#{bundle.CreateCommentTitle_content}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_content}"/>
-                    <h:outputLabel value="#{bundle.CreateCommentLabel_commentTime}" for="commentTime" />
-                    <h:inputText id="commentTime" value="#{commentController.selected.commentTime}" title="#{bundle.CreateCommentTitle_commentTime}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateCommentLabel_account}" for="account" />
-                    <h:selectOneMenu id="account" value="#{commentController.selected.account}" title="#{bundle.CreateCommentTitle_account}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_account}">
-                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateCommentLabel_post}" for="post" />
-                    <h:selectOneMenu id="post" value="#{commentController.selected.post}" title="#{bundle.CreateCommentTitle_post}" required="true" requiredMessage="#{bundle.CreateCommentRequiredMessage_post}">
-                        <f:selectItems value="#{postController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{commentController.create}" value="#{bundle.CreateCommentSaveLink}" />

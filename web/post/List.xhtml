@@ -46,7 +46,7 @@
                             </f:facet>
                             <h:outputText value="#{item.account}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{accountController.selected.username!=null}">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>

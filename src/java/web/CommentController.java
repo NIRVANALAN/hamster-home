@@ -8,6 +8,7 @@ import session.CommentFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -47,7 +48,7 @@ public class CommentController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(30) {
 
                 @Override
                 public int getItemsCount() {
@@ -78,11 +79,21 @@ public class CommentController implements Serializable {
         current = new Comment();
         current.setCommentPK(new entity.CommentPK());
         selectedItemIndex = -1;
-        return "Create";
+        return "View";
     }
 
     public String create() {
         try {
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            ELContext eLContext = context.getELContext();
+            PostController postController = (PostController) eLContext.getELResolver().getValue(eLContext, null, "postController");
+            AccountController accountController=(AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
+            
+            current.setAccount(accountController.getSelected());
+            
+            current.setPost(postController.getSelected());
+
             current.getCommentPK().setPostAccountusername(current.getPost().getPostPK().getAccountusername());
             current.getCommentPK().setAccountusername(current.getAccount().getUsername());
             current.getCommentPK().setPostPostId(current.getPost().getPostPK().getPostId());

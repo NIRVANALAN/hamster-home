@@ -56,7 +56,7 @@ public class PostController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(3) {
+            pagination = new PaginationHelper(30) {
 
                 @Override
                 public int getItemsCount() {

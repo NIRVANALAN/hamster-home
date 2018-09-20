@@ -50,13 +50,7 @@
                         </f:facet>
                         <h:outputText value="#{item.account}"/>
                     </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCommentTitle_post}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.post}"/>
-                    </h:column>
-                    <h:column>
+                    <h:column rendered="#{accountController.selected.username!=null}">
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
@@ -67,15 +61,19 @@
                         <h:commandLink action="#{commentController.destroy}" value="#{bundle.ListCommentDestroyLink}"/>
                     </h:column>
                 </h:dataTable>
+                <h:panelGroup layout="block" rendered="false">
+                    <br />
+                    <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
+                    <br />
+                    <br />
+                    <h:link outcome="Edit" value="#{bundle.ViewPostEditLink}"/>
+                    <br />
+                    <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ViewPostCreateLink}" />
+                    <br />
+                    <h:commandLink action="#{postController.prepareList}" value="#{bundle.ViewPostShowAllLink}"/>
+                </h:panelGroup>
                 <br />
-                <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewPostEditLink}"/>
-                <br />
-                <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ViewPostCreateLink}" />
-                <br />
-                <h:commandLink action="#{postController.prepareList}" value="#{bundle.ViewPostShowAllLink}"/>
+                <h:link outcome="/comment/Create.xhtml" value="Comment"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewPostIndexLink}"/>
