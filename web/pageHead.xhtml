@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+        <ui:composition> 
+            <div style="left: 0px;top: 0px;
+                 width: 4000 ;height: 20px;
+                 line-height: 29px;
+                 background-color: rgba(255, 255, 255, 1);color: rgba(244, 167, 185, 1);
+                 font-size: 18px;
+                 text-align: left;
+                 font-family: Roboto;
+                 border: 1px solid rgba(187, 187, 187, 1);">
+                <div style="left: 225px;top: 5px;width: 400px;position:absolute;
+                     height: 40px;
+                     color: rgba(0, 0, 0, 1);
+                     font-size: 12px;
+                     text-align: left;
+                     font-family: SourceHanSansSC-regular;">
+                    Hello！欢迎喜爱仓鼠的您访问仓鼠小站
+                </div>
+                <style>
+                    A:link    { color: #115594; text-decoration: none }
+                    A:hover   { color: #115594; text-decoration: underline }
+                </style>
+                <div style="left: 1175px;top: 5px;position: absolute;
+                     width: 40px;height: 27px;
+                     color: rgba(0, 0, 0, 1);
+                     font-size: 12px;
+                     text-align: left;
+                     font-family: SourceHanSansSC-regular;">
+                    <h:link value="登录" outcome="login" ></h:link> |
+                </div>
+                <div style="left: 1215px;top: 5px;position: absolute;
+                     width: 40px;height: 27px;
+                     color: rgba(0, 0, 0, 1);
+                     font-size: 12px;
+                     text-align: left;
+                     font-family: SourceHanSansSC-regular;">
+                    <h:link value="注册" outcome="registe"></h:link> | 
+                </div>
+                <div style="left: 1255px;top: 5px;position: absolute;
+                     width: 50px;height: 27px;
+                     color: rgba(0, 0, 0, 1);
+                     font-size: 12px;
+                     text-align: left;
+                     font-family: SourceHanSansSC-regular;">
+                    <h:link value="购物车" outcome="shoppingCart"></h:link>
+                </div>
+                <h:graphicImage style="left: 1298px;top: 8px;position: absolute;width: 20px;height: 20px;" value="resources/image/shoppingCart.png"/>
+            </div>
+        </ui:composition> 
+    </body>
+</html>
