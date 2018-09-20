@@ -94,13 +94,10 @@ public class PostController implements Serializable {
     public String create() {
         try {
             
-            
             FacesContext context = FacesContext.getCurrentInstance();
             ELContext eLContext = context.getELContext();
             AccountController accountController = (AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
-            
             current.setAccount(accountController.getSelected());
-
 //            current.getPostPK().setAccountusername(current.getAccount().getUsername());
             current.getPostPK().setAccountusername(accountController.getSelected().getUsername());
             
