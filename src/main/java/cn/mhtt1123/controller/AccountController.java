@@ -201,7 +201,7 @@ public class AccountController implements Serializable {
                 return "/index";
             }
         }
-        return "/account/login/fail";
+        return "/account/login/Fail";
     }
 
     @FacesConverter(forClass = Account.class)
