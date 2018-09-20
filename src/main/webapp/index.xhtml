@@ -8,9 +8,9 @@
     <h:outputStylesheet name="css/jsfcrud.css"/>
 </h:head>
 <h:body>
-    Welcome to Hamster Home,
-    <h:outputLabel value="#{accountController.selected.username}"/>
-    .
+    Welcome to Hamster Home
+    <h:outputLabel value=", #{accountController.selected.username}."
+                   rendered="#{accountController.selected.username != null}"/>
     <br/>
     <h:link outcome="/account/List" value="Show All Account Items"/>
     <br/>
@@ -24,7 +24,10 @@
     <br/>
     <h:link outcome="/product/List" value="Show All Product Items"/>
     <br/>
-    <h:link outcome="/account/Login" value="login"/>
+    <h:link outcome="/account/Login" value="login" rendered="#{accountController.selected.username == null}"/>
+    <h:form id="logoutForm" rendered="#{accountController.selected.username != null}">
+        <h:commandLink action="#{accountController.logout}" value="logout"/>
+    </h:form>
 </h:body>
 
 

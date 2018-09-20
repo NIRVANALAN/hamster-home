@@ -204,6 +204,11 @@ public class AccountController implements Serializable {
         return "/account/login/Fail";
     }
 
+    public String logout() {
+        if (current != null) current = null;
+        return "/index";
+    }
+
     @FacesConverter(forClass = Account.class)
     public static class AccountControllerConverter implements Converter {
 
