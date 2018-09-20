@@ -16,7 +16,6 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.List;
 import java.util.ResourceBundle;
 
 @Named("accountController")
@@ -194,12 +193,10 @@ public class AccountController implements Serializable {
     }
 
     public String verify() {
-        List<Account> accounts = ejbFacade.findAll();
-        for (Account account : accounts) {
-            if (account.getUsername().equals(current.getUsername()) && account.getPassword().equals(current.getPassword())) {
-                current = account;
-                return "/index";
-            }
+        Account account = ejbFacade.findByUsername(current.getUsername());
+        if (account != null && account.getPassword().equals(current.getPassword())) {
+            current = account;
+            return "/index";
         }
         return "/account/login/Fail";
     }

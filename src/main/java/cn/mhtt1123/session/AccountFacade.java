@@ -29,4 +29,7 @@ public class AccountFacade extends AbstractFacade<Account> {
         return em;
     }
 
+    public Account findByUsername(String username) {
+        return (Account) em.createNamedQuery("Account.findByUsername").setParameter("username", username).getSingleResult();
+    }
 }
