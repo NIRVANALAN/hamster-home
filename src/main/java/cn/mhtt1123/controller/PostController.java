@@ -70,6 +70,11 @@ public class PostController implements Serializable {
         return "View";
     }
 
+    public String prepareView(Post post) {
+        current = post;
+        return "/post/View";
+    }
+
     public String prepareCreate() {
         current = new Post();
         selectedItemIndex = -1;
@@ -188,13 +193,6 @@ public class PostController implements Serializable {
     public Post getPost(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
-
-    /*
-    public Post getLatestPost() {
-        List postsOrderBy = ejbFacade.findPostsOrderPubTime();
-        return postsOrderBy.isEmpty() ? null : (Post) postsOrderBy.get(0);
-    }
-    */
 
     @FacesConverter(forClass = Post.class)
     public static class PostControllerConverter implements Converter {

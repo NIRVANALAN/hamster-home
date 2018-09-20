@@ -8,7 +8,7 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
-        <h:outputText value="#{bundle.ViewAccountTitle}"></h:outputText>
+        <h:outputText value="#{bundle.ViewAccountTitle}"/>
     </ui:define>
     <ui:define name="body">
         <h:panelGroup id="messagePanel" layout="block">
@@ -31,14 +31,41 @@
                 </h:outputText>
             </h:panelGrid>
             <br/>
+            <h:dataTable value="#{accountController.selected.postList}" var="item"
+                         border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row"
+                         rules="all" style="border:solid 1px">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPostTitle_title}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPostTitle_content}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.content}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPostTitle_pubTime}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pubTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="&nbsp;"/>
+                    </f:facet>
+                    <h:commandLink action="#{postController.prepareView(item)}" value="#{bundle.ListPostViewLink}"/>
+                </h:column>
+            </h:dataTable>
+            <br/>
             <h:commandLink action="#{accountController.destroyAndView}" value="#{bundle.ViewAccountDestroyLink}"/>
             <br/>
             <br/>
             <h:link outcome="Edit" value="#{bundle.ViewAccountEditLink}"/>
-            <br/>
-            <h:commandLink action="#{accountController.prepareCreate}" value="#{bundle.ViewAccountCreateLink}"/>
-            <br/>
-            <h:commandLink action="#{accountController.prepareList}" value="#{bundle.ViewAccountShowAllLink}"/>
             <br/>
             <br/>
             <h:link outcome="/index" value="#{bundle.ViewAccountIndexLink}"/>
