@@ -32,7 +32,7 @@ public class MyPostController implements Serializable {
     private session.PostFacade ejbFacade;
     @EJB
     private session.AccountFacade accountFacade;
-    
+
     public AccountFacade getAccountFacade() {
         return accountFacade;
     }
@@ -74,7 +74,7 @@ public class MyPostController implements Serializable {
                 public DataModel createPageDataModel() {
                     FacesContext context = FacesContext.getCurrentInstance();
                     ELContext eLContext = context.getELContext();
-                    AccountController accountController = (AccountController)eLContext.getELResolver().getValue(eLContext,null,"accountController");
+                    AccountController accountController = (AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
 //                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
 //                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                     return new ListDataModel(getFacade().getMyPosts(accountController.getSelected().getUsername(), new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -179,9 +179,10 @@ public class MyPostController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+        //        if (items == null) {
+        //            items = getPagination().createPageDataModel();
+        //        }
+        items = getPagination().createPageDataModel();
         return items;
     }
 
