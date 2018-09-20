@@ -81,6 +81,8 @@ public class AccountController implements Serializable {
 
     public String create() {
         try {
+            current.setId(ejbFacade.count());
+            current.setRegisterTime(new java.util.Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AccountCreated"));
             return prepareCreate();

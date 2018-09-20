@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
@@ -16,9 +16,6 @@
         </h:panelGroup>
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="#{bundle.CreateAccountLabel_id}" for="id"/>
-                <h:inputText id="id" value="#{accountController.selected.id}" title="#{bundle.CreateAccountTitle_id}"
-                             required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_id}"/>
                 <h:outputLabel value="#{bundle.CreateAccountLabel_username}" for="username"/>
                 <h:inputText id="username" value="#{accountController.selected.username}"
                              title="#{bundle.CreateAccountTitle_username}" required="true"
@@ -27,12 +24,6 @@
                 <h:inputText id="password" value="#{accountController.selected.password}"
                              title="#{bundle.CreateAccountTitle_password}" required="true"
                              requiredMessage="#{bundle.CreateAccountRequiredMessage_password}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_registerTime}" for="registerTime"/>
-                <h:inputText id="registerTime" value="#{accountController.selected.registerTime}"
-                             title="#{bundle.CreateAccountTitle_registerTime}" required="true"
-                             requiredMessage="#{bundle.CreateAccountRequiredMessage_registerTime}">
-                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
-                </h:inputText>
             </h:panelGrid>
             <br/>
             <h:commandLink action="#{accountController.create}" value="#{bundle.CreateAccountSaveLink}"/>
