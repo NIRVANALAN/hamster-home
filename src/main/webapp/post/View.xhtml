@@ -30,6 +30,31 @@
                 <h:outputText value="#{postController.selected.postAuthor}" title="#{bundle.ViewPostTitle_postAuthor}"/>
             </h:panelGrid>
             <br/>
+            <h:dataTable value="#{postController.selected.commentList}" var="item" border="0" cellpadding="2"
+                         cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
+                         style="border:solid 1px">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCommentTitle_content}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.content}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCommentTitle_pubTime}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pubTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListCommentTitle_commentAuthor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.commentAuthor}"/>
+                </h:column>
+            </h:dataTable>
+            <br/>
             <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
             <br/>
             <br/>
