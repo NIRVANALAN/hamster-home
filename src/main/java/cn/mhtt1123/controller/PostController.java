@@ -29,9 +29,6 @@ public class PostController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public PostController() {
-    }
-
     public Post getSelected() {
         if (current == null) {
             current = new Post();
@@ -55,7 +52,7 @@ public class PostController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findPostsOrderPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -192,6 +189,13 @@ public class PostController implements Serializable {
         return ejbFacade.find(id);
     }
 
+    /*
+    public Post getLatestPost() {
+        List postsOrderBy = ejbFacade.findPostsOrderPubTime();
+        return postsOrderBy.isEmpty() ? null : (Post) postsOrderBy.get(0);
+    }
+    */
+
     @FacesConverter(forClass = Post.class)
     public static class PostControllerConverter implements Converter {
 
@@ -212,9 +216,7 @@ public class PostController implements Serializable {
         }
 
         String getStringKey(java.lang.Integer value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
+            return String.valueOf(value);
         }
 
         @Override

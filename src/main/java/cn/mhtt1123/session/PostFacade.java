@@ -10,6 +10,8 @@ import cn.mhtt1123.entity.Post;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @author newcoderlife
@@ -29,4 +31,10 @@ public class PostFacade extends AbstractFacade<Post> {
         return em;
     }
 
+    public List<Post> findPostsOrderPubTime(int[] range) {
+        Query query = em.createNamedQuery("Post.findOrderByPubTimeDesc");
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1] - range[0] + 1);
+        return query.getResultList();
+    }
 }

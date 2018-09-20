@@ -25,7 +25,8 @@ import java.util.List;
         , @NamedQuery(name = "Post.findById", query = "SELECT p FROM Post p WHERE p.id = :id")
         , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
         , @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")
-        , @NamedQuery(name = "Post.findByPubTime", query = "SELECT p FROM Post p WHERE p.pubTime = :pubTime")})
+        , @NamedQuery(name = "Post.findByPubTime", query = "SELECT p FROM Post p WHERE p.pubTime = :pubTime")
+        , @NamedQuery(name = "Post.findOrderByPubTimeDesc", query = "SELECT p FROM Post p ORDER BY p.pubTime DESC")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -119,10 +120,7 @@ public class Post implements Serializable {
             return false;
         }
         Post other = (Post) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override
