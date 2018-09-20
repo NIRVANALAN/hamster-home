@@ -92,7 +92,7 @@ public class MyPostController implements Serializable {
     public String prepareView() {
         current = (Post) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "MyPostView";
     }
 
     public String prepareCreate() {
@@ -179,10 +179,10 @@ public class MyPostController implements Serializable {
     }
 
     public DataModel getItems() {
-        //        if (items == null) {
-        //            items = getPagination().createPageDataModel();
-        //        }
-        items = getPagination().createPageDataModel();
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+//        items = getPagination().createPageDataModel();
         return items;
     }
 

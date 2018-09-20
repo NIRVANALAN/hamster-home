@@ -10,20 +10,22 @@
         Welcome to HamsterHome
         <h:outputLabel value=" "/>
         <h:outputLabel value="#{accountController.selected.username}"/>
-        <br />
-        <h:link outcome="/account/List" value="Show All Account Items"/>
-        <br />
-        <h:link outcome="/comment/List" value="Show All Comment Items"/>
-        <br />
-        <h:link outcome="/orderForm/List" value="Show All OrderForm Items"/>
-        <br />
-        <h:link outcome="/post/List" value="Show All Post Items"/>
-        <br />
-        <h:link outcome="/product/List" value="Show All Product Items"/>
-        <br />
-        <h:link outcome="/receiver/List" value="Show All Receiver Items"/>
-        <br />
-        <h:link outcome="/selectedProduct/List" value="Show All SelectedProduct Items"/>
+        <br/>
+        <h:panelGroup layout="block" rendered="#{accountController.selected.username eq 'admin'}">
+            <h:link outcome="/account/List" value="Show All Account Items" />
+            <br/>
+            <h:link outcome="/comment/List" value="Show All Comment Items" />
+            <br />
+            <h:link outcome="/orderForm/List" value="Show All OrderForm Items" />
+            <br />
+            <h:link outcome="/product/List" value="Show All Product Items" />
+            <br />
+            <h:link outcome="/receiver/List" value="Show All Receiver Items" />   
+            <br />
+            <h:link outcome="/selectedProduct/List" value="Show All SelectedProduct Items"/>
+            <br />
+            <h:link outcome="/post/List" value="Show All Post Items"/>
+        </h:panelGroup>
         <br/>
         <h:link outcome="login" value="login" rendered="#{accountController.selected.username==null}"/> 
         <h:form id="LogoutForm" rendered="#{accountController.selected.username!=null}">
