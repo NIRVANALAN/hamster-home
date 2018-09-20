@@ -6,6 +6,7 @@ import cn.mhtt1123.entity.Post;
 import cn.mhtt1123.session.PostFacade;
 
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -83,6 +84,11 @@ public class PostController implements Serializable {
 
     public String create() {
         try {
+            ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+            AccountController accountController = (AccountController) elContext.getELResolver().getValue(elContext, null, "accountController");
+            current.setPostAuthor(accountController.getSelected());
+            current.setId(ejbFacade.count());
+            current.setPubTime(new java.util.Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PostCreated"));
             return prepareCreate();

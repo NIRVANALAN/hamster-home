@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
-        <h:outputText value="#{bundle.CreatePostTitle}"></h:outputText>
+        <h:outputText value="#{bundle.CreatePostTitle}"/>
     </ui:define>
     <ui:define name="body">
         <h:panelGroup id="messagePanel" layout="block">
@@ -16,26 +16,12 @@
         </h:panelGroup>
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="#{bundle.CreatePostLabel_id}" for="id"/>
-                <h:inputText id="id" value="#{postController.selected.id}" title="#{bundle.CreatePostTitle_id}"
-                             required="true" requiredMessage="#{bundle.CreatePostRequiredMessage_id}"/>
                 <h:outputLabel value="#{bundle.CreatePostLabel_title}" for="title"/>
                 <h:inputText id="title" value="#{postController.selected.title}"
                              title="#{bundle.CreatePostTitle_title}"/>
                 <h:outputLabel value="#{bundle.CreatePostLabel_content}" for="content"/>
                 <h:inputText id="content" value="#{postController.selected.content}"
                              title="#{bundle.CreatePostTitle_content}"/>
-                <h:outputLabel value="#{bundle.CreatePostLabel_pubTime}" for="pubTime"/>
-                <h:inputText id="pubTime" value="#{postController.selected.pubTime}"
-                             title="#{bundle.CreatePostTitle_pubTime}">
-                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
-                </h:inputText>
-                <h:outputLabel value="#{bundle.CreatePostLabel_postAuthor}" for="postAuthor"/>
-                <h:selectOneMenu id="postAuthor" value="#{postController.selected.postAuthor}"
-                                 title="#{bundle.CreatePostTitle_postAuthor}" required="true"
-                                 requiredMessage="#{bundle.CreatePostRequiredMessage_postAuthor}">
-                    <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
-                </h:selectOneMenu>
             </h:panelGrid>
             <br/>
             <h:commandLink action="#{postController.create}" value="#{bundle.CreatePostSaveLink}"/>
