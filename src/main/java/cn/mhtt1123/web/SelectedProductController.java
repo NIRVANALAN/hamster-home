@@ -1,127 +1,201 @@
 package cn.mhtt1123.web;
 
-import cn.mhtt1123.eneity.SelectedProduct;
 import cn.mhtt1123.web.util.JsfUtil;
-import cn.mhtt1123.web.util.JsfUtil.PersistAction;
-import cn.mhtt1123.session.SelectedProductFacade;
+import cn.mhtt1123.web.util.PaginationHelper;
+import entity.SelectedProduct;
+import session.SelectedProductFacade;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ResourceBundle;
 
 @Named("selectedProductController")
 @SessionScoped
 public class SelectedProductController implements Serializable {
 
+    private SelectedProduct current;
+    private DataModel items = null;
     @EJB
-    private cn.mhtt1123.session.SelectedProductFacade ejbFacade;
-    private List<SelectedProduct> items = null;
-    private SelectedProduct selected;
+    private session.SelectedProductFacade ejbFacade;
+    private PaginationHelper pagination;
+    private int selectedItemIndex;
 
     public SelectedProductController() {
     }
 
     public SelectedProduct getSelected() {
-        return selected;
-    }
-
-    public void setSelected(SelectedProduct selected) {
-        this.selected = selected;
-    }
-
-    protected void setEmbeddableKeys() {
-        selected.getSelectedProductPK().setProductproductId(selected.getProduct().getProductId());
-        selected.getSelectedProductPK().setAccountusername(selected.getAccount().getUsername());
-    }
-
-    protected void initializeEmbeddableKey() {
-        selected.setSelectedProductPK(new cn.mhtt1123.eneity.SelectedProductPK());
+        if (current == null) {
+            current = new SelectedProduct();
+            current.setSelectedProductPK(new entity.SelectedProductPK());
+            selectedItemIndex = -1;
+        }
+        return current;
     }
 
     private SelectedProductFacade getFacade() {
         return ejbFacade;
     }
 
-    public SelectedProduct prepareCreate() {
-        selected = new SelectedProduct();
-        initializeEmbeddableKey();
-        return selected;
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                }
+            };
+        }
+        return pagination;
     }
 
-    public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SelectedProductCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+    public String prepareList() {
+        recreateModel();
+        return "List";
+    }
+
+    public String prepareView() {
+        current = (SelectedProduct) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "View";
+    }
+
+    public String prepareCreate() {
+        current = new SelectedProduct();
+        current.setSelectedProductPK(new entity.SelectedProductPK());
+        selectedItemIndex = -1;
+        return "Create";
+    }
+
+    public String create() {
+        try {
+            current.getSelectedProductPK().setAccountusername(current.getAccount().getUsername());
+            current.getSelectedProductPK().setProductproductId(current.getProduct().getProductId());
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SelectedProductCreated"));
+            return prepareCreate();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
         }
     }
 
-    public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SelectedProductUpdated"));
+    public String prepareEdit() {
+        current = (SelectedProduct) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Edit";
     }
 
-    public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SelectedProductDeleted"));
-        if (!JsfUtil.isValidationFailed()) {
-            selected = null; // Remove selection
-            items = null;    // Invalidate list of items to trigger re-query.
+    public String update() {
+        try {
+            current.getSelectedProductPK().setAccountusername(current.getAccount().getUsername());
+            current.getSelectedProductPK().setProductproductId(current.getProduct().getProductId());
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SelectedProductUpdated"));
+            return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
         }
     }
 
-    public List<SelectedProduct> getItems() {
+    public String destroy() {
+        current = (SelectedProduct) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String destroyAndView() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDestroy() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SelectedProductDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+
+    private void updateCurrentItem() {
+        int count = getFacade().count();
+        if (selectedItemIndex >= count) {
+            // selected index cannot be bigger than number of items:
+            selectedItemIndex = count - 1;
+            // go to previous page if last page disappeared:
+            if (pagination.getPageFirstItem() >= count) {
+                pagination.previousPage();
+            }
+        }
+        if (selectedItemIndex >= 0) {
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+        }
+    }
+
+    public DataModel getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getPagination().createPageDataModel();
         }
         return items;
     }
 
-    private void persist(PersistAction persistAction, String successMessage) {
-        if (selected != null) {
-            setEmbeddableKeys();
-            try {
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
-                } else {
-                    getFacade().remove(selected);
-                }
-                JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        }
+    private void recreateModel() {
+        items = null;
     }
 
-    public SelectedProduct getSelectedProduct(cn.mhtt1123.eneity.SelectedProductPK id) {
-        return getFacade().find(id);
+    private void recreatePagination() {
+        pagination = null;
     }
 
-    public List<SelectedProduct> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+    public String next() {
+        getPagination().nextPage();
+        recreateModel();
+        return "List";
     }
 
-    public List<SelectedProduct> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+    public String previous() {
+        getPagination().previousPage();
+        recreateModel();
+        return "List";
+    }
+
+    public SelectItem[] getItemsAvailableSelectMany() {
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+    }
+
+    public SelectItem[] getItemsAvailableSelectOne() {
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public SelectedProduct getSelectedProduct(entity.SelectedProductPK id) {
+        return ejbFacade.find(id);
     }
 
     @FacesConverter(forClass = SelectedProduct.class)
@@ -140,16 +214,16 @@ public class SelectedProductController implements Serializable {
             return controller.getSelectedProduct(getKey(value));
         }
 
-        cn.mhtt1123.eneity.SelectedProductPK getKey(String value) {
-            cn.mhtt1123.eneity.SelectedProductPK key;
+        entity.SelectedProductPK getKey(String value) {
+            entity.SelectedProductPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new cn.mhtt1123.eneity.SelectedProductPK();
+            key = new entity.SelectedProductPK();
             key.setProductproductId(values[0]);
             key.setAccountusername(values[1]);
             return key;
         }
 
-        String getStringKey(cn.mhtt1123.eneity.SelectedProductPK value) {
+        String getStringKey(entity.SelectedProductPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getProductproductId());
             sb.append(SEPARATOR);
@@ -166,8 +240,7 @@ public class SelectedProductController implements Serializable {
                 SelectedProduct o = (SelectedProduct) object;
                 return getStringKey(o.getSelectedProductPK());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), SelectedProduct.class.getName()});
-                return null;
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + SelectedProduct.class.getName());
             }
         }
 

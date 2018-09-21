@@ -3,47 +3,44 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
- *
  * @author newcoderlife
  */
 @Embeddable
-public class SelectedProductPK implements Serializable {
+public class PostPK implements Serializable {
 
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "Product_productId")
-    private String productproductId;
+    @Column(name = "PostId")
+    private int postId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "Account_username")
     private String accountusername;
 
-    public SelectedProductPK() {
+    public PostPK() {
     }
 
-    public SelectedProductPK(String productproductId, String accountusername) {
-        this.productproductId = productproductId;
+    public PostPK(int postId, String accountusername) {
+        this.postId = postId;
         this.accountusername = accountusername;
     }
 
-    public String getProductproductId() {
-        return productproductId;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setProductproductId(String productproductId) {
-        this.productproductId = productproductId;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public String getAccountusername() {
@@ -57,7 +54,7 @@ public class SelectedProductPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (productproductId != null ? productproductId.hashCode() : 0);
+        hash += (int) postId;
         hash += (accountusername != null ? accountusername.hashCode() : 0);
         return hash;
     }
@@ -65,11 +62,11 @@ public class SelectedProductPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SelectedProductPK)) {
+        if (!(object instanceof PostPK)) {
             return false;
         }
-        SelectedProductPK other = (SelectedProductPK) object;
-        if ((this.productproductId == null && other.productproductId != null) || (this.productproductId != null && !this.productproductId.equals(other.productproductId))) {
+        PostPK other = (PostPK) object;
+        if (this.postId != other.postId) {
             return false;
         }
         if ((this.accountusername == null && other.accountusername != null) || (this.accountusername != null && !this.accountusername.equals(other.accountusername))) {
@@ -80,7 +77,7 @@ public class SelectedProductPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.SelectedProductPK[ productproductId=" + productproductId + ", accountusername=" + accountusername + " ]";
+        return "cn.mhtt1123.entity.PostPK[ postId=" + postId + ", accountusername=" + accountusername + " ]";
     }
-    
+
 }

@@ -3,37 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "OrderForm")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderForm.findAll", query = "SELECT o FROM OrderForm o")
-    , @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime")
-    , @NamedQuery(name = "OrderForm.findByFee", query = "SELECT o FROM OrderForm o WHERE o.fee = :fee")
-    , @NamedQuery(name = "OrderForm.findByReceiveraddress", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiveraddress = :receiveraddress")
-    , @NamedQuery(name = "OrderForm.findByReceiverphoneno", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverphoneno = :receiverphoneno")
-    , @NamedQuery(name = "OrderForm.findByReceiverAccountusername", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverAccountusername = :receiverAccountusername")
-    , @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime")})
+        @NamedQuery(name = "OrderForm.findAll", query = "SELECT o FROM OrderForm o")
+        , @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime")
+        , @NamedQuery(name = "OrderForm.findByFee", query = "SELECT o FROM OrderForm o WHERE o.fee = :fee")
+        , @NamedQuery(name = "OrderForm.findByReceiveraddress", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiveraddress = :receiveraddress")
+        , @NamedQuery(name = "OrderForm.findByReceiverphoneno", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverphoneno = :receiverphoneno")
+        , @NamedQuery(name = "OrderForm.findByReceiverAccountusername", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.receiverAccountusername = :receiverAccountusername")
+        , @NamedQuery(name = "OrderForm.findByCreateTime", query = "SELECT o FROM OrderForm o WHERE o.orderFormPK.createTime = :createTime")})
 public class OrderForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,9 +33,9 @@ public class OrderForm implements Serializable {
     @Column(name = "fee")
     private BigInteger fee;
     @JoinColumns({
-        @JoinColumn(name = "Receiver_address", referencedColumnName = "address", insertable = false, updatable = false)
-        , @JoinColumn(name = "Receiver_phoneno", referencedColumnName = "phoneno", insertable = false, updatable = false)
-        , @JoinColumn(name = "Receiver_Account_username", referencedColumnName = "Account_username", insertable = false, updatable = false)})
+            @JoinColumn(name = "Receiver_address", referencedColumnName = "address", insertable = false, updatable = false)
+            , @JoinColumn(name = "Receiver_phoneno", referencedColumnName = "phoneno", insertable = false, updatable = false)
+            , @JoinColumn(name = "Receiver_Account_username", referencedColumnName = "Account_username", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Receiver receiver;
 
@@ -105,7 +96,7 @@ public class OrderForm implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.OrderForm[ orderFormPK=" + orderFormPK + " ]";
+        return "cn.mhtt1123.entity.OrderForm[ orderFormPK=" + orderFormPK + " ]";
     }
-    
+
 }

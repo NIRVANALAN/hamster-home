@@ -1,8 +1,9 @@
 package cn.mhtt1123.web;
 
-import cn.mhtt1123.entity.Comment;
-import cn.mhtt1123.entity.CommentPK;
-import cn.mhtt1123.session.CommentFacade;
+import cn.mhtt1123.entity.Post;
+import cn.mhtt1123.entity.PostPK;
+import cn.mhtt1123.session.AccountFacade;
+import cn.mhtt1123.session.PostFacade;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
 
@@ -20,30 +21,41 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
-@Named("commentController")
+@Named("myPostController")
 @SessionScoped
-public class CommentController implements Serializable {
+public class MyPostController implements Serializable {
 
-    private Comment current;
+    private Post current;
     private DataModel items = null;
     @EJB
-    private CommentFacade ejbFacade;
+    private PostFacade ejbFacade;
+    @EJB
+    private AccountFacade accountFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public CommentController() {
+    public AccountFacade getAccountFacade() {
+        return accountFacade;
     }
 
-    public Comment getSelected() {
+    //    public Post getLatestPost() {
+//        List<Post> postsOrderBy = ejbFacade.getPostOrderByPubTime();
+//        if (postsOrderBy.isEmpty()) {
+//            return null;
+//        } else {
+//            return postsOrderBy.get(0);
+//        }
+//    }
+    public Post getSelected() {
         if (current == null) {
-            current = new Comment();
-            current.setCommentPK(new CommentPK());
+            current = new Post();
+            current.setPostPK(new PostPK());
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private CommentFacade getFacade() {
+    private PostFacade getFacade() {
         return ejbFacade;
     }
 
@@ -58,7 +70,12 @@ public class CommentController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    ELContext eLContext = context.getELContext();
+                    AccountController accountController = (AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
+//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+//                    return new ListDataModel(getFacade().getPostOrderByPubTime(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().getMyPosts(accountController.getSelected().getUsername(), new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -71,35 +88,23 @@ public class CommentController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Comment) getItems().getRowData();
+        current = (Post) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "MyPostView";
     }
 
     public String prepareCreate() {
-        current = new Comment();
-        current.setCommentPK(new CommentPK());
+        current = new Post();
+        current.setPostPK(new PostPK());
         selectedItemIndex = -1;
-        return "View";
+        return "Create";
     }
 
     public String create() {
         try {
-
-            FacesContext context = FacesContext.getCurrentInstance();
-            ELContext eLContext = context.getELContext();
-            PostController postController = (PostController) eLContext.getELResolver().getValue(eLContext, null, "postController");
-            AccountController accountController = (AccountController) eLContext.getELResolver().getValue(eLContext, null, "accountController");
-
-            current.setAccount(accountController.getSelected());
-
-            current.setPost(postController.getSelected());
-
-            current.getCommentPK().setPostAccountusername(current.getPost().getPostPK().getAccountusername());
-            current.getCommentPK().setAccountusername(current.getAccount().getUsername());
-            current.getCommentPK().setPostPostId(current.getPost().getPostPK().getPostId());
+            current.getPostPK().setAccountusername(current.getAccount().getUsername());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommentCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PostCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,18 +113,16 @@ public class CommentController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Comment) getItems().getRowData();
+        current = (Post) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            current.getCommentPK().setPostAccountusername(current.getPost().getPostPK().getAccountusername());
-            current.getCommentPK().setAccountusername(current.getAccount().getUsername());
-            current.getCommentPK().setPostPostId(current.getPost().getPostPK().getPostId());
+            current.getPostPK().setAccountusername(current.getAccount().getUsername());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommentUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PostUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -128,7 +131,7 @@ public class CommentController implements Serializable {
     }
 
     public String destroy() {
-        current = (Comment) getItems().getRowData();
+        current = (Post) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -152,7 +155,7 @@ public class CommentController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommentDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PostDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -177,6 +180,7 @@ public class CommentController implements Serializable {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
+//        items = getPagination().createPageDataModel();
         return items;
     }
 
@@ -191,13 +195,13 @@ public class CommentController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "MyPost";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "MyPost";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -208,12 +212,12 @@ public class CommentController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Comment getComment(CommentPK id) {
+    public Post getPost(PostPK id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Comment.class)
-    public static class CommentControllerConverter implements Converter {
+    @FacesConverter(forClass = Post.class)
+    public static class PostControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";
         private static final String SEPARATOR_ESCAPED = "\\#";
@@ -223,26 +227,23 @@ public class CommentController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CommentController controller = (CommentController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "commentController");
-            return controller.getComment(getKey(value));
+            MyPostController controller = (MyPostController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "postController");
+            return controller.getPost(getKey(value));
         }
 
-        CommentPK getKey(String value) {
-            CommentPK key;
+        PostPK getKey(String value) {
+            PostPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new CommentPK();
-            key.setPostPostId(Integer.parseInt(values[0]));
-            key.setPostAccountusername(values[1]);
-            key.setAccountusername(values[2]);
+            key = new PostPK();
+            key.setPostId(Integer.parseInt(values[0]));
+            key.setAccountusername(values[1]);
             return key;
         }
 
-        String getStringKey(CommentPK value) {
+        String getStringKey(PostPK value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getPostPostId());
-            sb.append(SEPARATOR);
-            sb.append(value.getPostAccountusername());
+            sb.append(value.getPostId());
             sb.append(SEPARATOR);
             sb.append(value.getAccountusername());
             return sb.toString();
@@ -253,11 +254,11 @@ public class CommentController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Comment) {
-                Comment o = (Comment) object;
-                return getStringKey(o.getCommentPK());
+            if (object instanceof Post) {
+                Post o = (Post) object;
+                return getStringKey(o.getPostPK());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Comment.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Post.class.getName());
             }
         }
 

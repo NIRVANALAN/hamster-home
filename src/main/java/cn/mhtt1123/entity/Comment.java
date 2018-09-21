@@ -3,40 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Comment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
-    , @NamedQuery(name = "Comment.findByPostPostId", query = "SELECT c FROM Comment c WHERE c.commentPK.postPostId = :postPostId")
-    , @NamedQuery(name = "Comment.findByPostAccountusername", query = "SELECT c FROM Comment c WHERE c.commentPK.postAccountusername = :postAccountusername")
-    , @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")
-    , @NamedQuery(name = "Comment.findByCommentTime", query = "SELECT c FROM Comment c WHERE c.commentTime = :commentTime")
-    , @NamedQuery(name = "Comment.findByAccountusername", query = "SELECT c FROM Comment c WHERE c.commentPK.accountusername = :accountusername")})
+        @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c")
+        , @NamedQuery(name = "Comment.findByPostPostId", query = "SELECT c FROM Comment c WHERE c.commentPK.postPostId = :postPostId")
+        , @NamedQuery(name = "Comment.findByPostAccountusername", query = "SELECT c FROM Comment c WHERE c.commentPK.postAccountusername = :postAccountusername")
+        , @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")
+        , @NamedQuery(name = "Comment.findByCommentTime", query = "SELECT c FROM Comment c WHERE c.commentTime = :commentTime")
+        , @NamedQuery(name = "Comment.findByAccountusername", query = "SELECT c FROM Comment c WHERE c.commentPK.accountusername = :accountusername")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,8 +42,8 @@ public class Comment implements Serializable {
     @ManyToOne(optional = false)
     private Account account;
     @JoinColumns({
-        @JoinColumn(name = "Post_PostId", referencedColumnName = "PostId", insertable = false, updatable = false)
-        , @JoinColumn(name = "Post_Account_username", referencedColumnName = "Account_username", insertable = false, updatable = false)})
+            @JoinColumn(name = "Post_PostId", referencedColumnName = "PostId", insertable = false, updatable = false)
+            , @JoinColumn(name = "Post_Account_username", referencedColumnName = "Account_username", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private Post post;
 
@@ -137,7 +125,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.Comment[ commentPK=" + commentPK + " ]";
+        return "cn.mhtt1123.entity.Comment[ commentPK=" + commentPK + " ]";
     }
-    
+
 }

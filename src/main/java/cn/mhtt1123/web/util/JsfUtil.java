@@ -1,11 +1,11 @@
 package cn.mhtt1123.web.util;
 
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import java.util.List;
 
 public class JsfUtil {
 
@@ -21,10 +21,6 @@ public class JsfUtil {
             items[i++] = new SelectItem(x, x.toString());
         }
         return items;
-    }
-
-    public static boolean isValidationFailed() {
-        return FacesContext.getCurrentInstance().isValidationFailed();
     }
 
     public static void addErrorMessage(Exception ex, String defaultMsg) {
@@ -61,9 +57,4 @@ public class JsfUtil {
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
     }
 
-    public static enum PersistAction {
-        CREATE,
-        DELETE,
-        UPDATE
-    }
 }

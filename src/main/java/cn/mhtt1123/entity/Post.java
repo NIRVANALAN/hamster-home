@@ -3,44 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Post")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")
-    , @NamedQuery(name = "Post.findByPostId", query = "SELECT p FROM Post p WHERE p.postPK.postId = :postId")
-    , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
-    , @NamedQuery(name = "Post.findByPubTime", query = "SELECT p FROM Post p WHERE p.pubTime = :pubTime")
-    , @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")
-    , @NamedQuery(name = "Post.findByAccountusername", query = "SELECT p FROM Post p WHERE p.postPK.accountusername = :accountusername ORDER BY p.pubTime DESC")
-    , @NamedQuery(name = "Post.findOrderByPubTimeDesc",query = "SELECT p from Post p ORDER BY p.pubTime DESC")})
+        @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")
+        , @NamedQuery(name = "Post.findByPostId", query = "SELECT p FROM Post p WHERE p.postPK.postId = :postId")
+        , @NamedQuery(name = "Post.findByTitle", query = "SELECT p FROM Post p WHERE p.title = :title")
+        , @NamedQuery(name = "Post.findByPubTime", query = "SELECT p FROM Post p WHERE p.pubTime = :pubTime")
+        , @NamedQuery(name = "Post.findByContent", query = "SELECT p FROM Post p WHERE p.content = :content")
+        , @NamedQuery(name = "Post.findByAccountusername", query = "SELECT p FROM Post p WHERE p.postPK.accountusername = :accountusername ORDER BY p.pubTime DESC")
+        , @NamedQuery(name = "Post.findOrderByPubTimeDesc", query = "SELECT p from Post p ORDER BY p.pubTime DESC")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -153,7 +140,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.Post[ postPK=" + postPK + " ]";
+        return "cn.mhtt1123.entity.Post[ postPK=" + postPK + " ]";
     }
-    
+
 }

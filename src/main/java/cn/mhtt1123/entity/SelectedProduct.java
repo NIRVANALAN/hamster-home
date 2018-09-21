@@ -3,31 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "selectedProduct")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SelectedProduct.findAll", query = "SELECT s FROM SelectedProduct s")
-    , @NamedQuery(name = "SelectedProduct.findByProductproductId", query = "SELECT s FROM SelectedProduct s WHERE s.selectedProductPK.productproductId = :productproductId")
-    , @NamedQuery(name = "SelectedProduct.findByProductNum", query = "SELECT s FROM SelectedProduct s WHERE s.productNum = :productNum")
-    , @NamedQuery(name = "SelectedProduct.findByAccountusername", query = "SELECT s FROM SelectedProduct s WHERE s.selectedProductPK.accountusername = :accountusername")})
+        @NamedQuery(name = "SelectedProduct.findAll", query = "SELECT s FROM SelectedProduct s")
+        , @NamedQuery(name = "SelectedProduct.findByProductproductId", query = "SELECT s FROM SelectedProduct s WHERE s.selectedProductPK.productproductId = :productproductId")
+        , @NamedQuery(name = "SelectedProduct.findByProductNum", query = "SELECT s FROM SelectedProduct s WHERE s.productNum = :productNum")
+        , @NamedQuery(name = "SelectedProduct.findByAccountusername", query = "SELECT s FROM SelectedProduct s WHERE s.selectedProductPK.accountusername = :accountusername")})
 public class SelectedProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -107,7 +99,7 @@ public class SelectedProduct implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.SelectedProduct[ selectedProductPK=" + selectedProductPK + " ]";
+        return "cn.mhtt1123.entity.SelectedProduct[ selectedProductPK=" + selectedProductPK + " ]";
     }
-    
+
 }

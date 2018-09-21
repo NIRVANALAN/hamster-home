@@ -5,15 +5,15 @@
  */
 package cn.mhtt1123.session;
 
-import cn.mhtt1123.eneity.Post;
-import java.util.List;
+import cn.mhtt1123.entity.Post;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Stateless
@@ -22,15 +22,15 @@ public class PostFacade extends AbstractFacade<Post> {
     @PersistenceContext(unitName = "cn.mhtt1123_hamster-home_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+    public PostFacade() {
+        super(Post.class);
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
-    public PostFacade() {
-        super(Post.class);
-    }
-    
     public List<Post> getPostOrderByPubTime(int[] range) {
         Query query = em.createNamedQuery("Post.findOrderByPubTimeDesc");
         query.setFirstResult(range[0]);
@@ -38,11 +38,11 @@ public class PostFacade extends AbstractFacade<Post> {
         return query.getResultList();
     }
 
-    public List<Post> getMyPosts(String accountUsername,int[] range){
+    public List<Post> getMyPosts(String accountUsername, int[] range) {
         Query query = em.createNamedQuery("Post.findByAccountusername");
         query.setParameter("accountusername", accountUsername);
         query.setFirstResult(range[0]);
-        query.setMaxResults(range[1] - range[0] + 1);    
+        query.setMaxResults(range[1] - range[0] + 1);
         return query.getResultList();
     }
 

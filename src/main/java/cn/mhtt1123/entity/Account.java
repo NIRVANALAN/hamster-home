@@ -3,45 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
-    , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
-    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
-    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
-    , @NamedQuery(name = "Account.findByCountry", query = "SELECT a FROM Account a WHERE a.country = :country")
-    , @NamedQuery(name = "Account.findByCity", query = "SELECT a FROM Account a WHERE a.city = :city")
-    , @NamedQuery(name = "Account.findByGender", query = "SELECT a FROM Account a WHERE a.gender = :gender")
-    , @NamedQuery(name = "Account.findBySigniture", query = "SELECT a FROM Account a WHERE a.signiture = :signiture")
-    , @NamedQuery(name = "Account.findByCreateDate", query = "SELECT a FROM Account a WHERE a.createDate = :createDate")})
+        @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+        , @NamedQuery(name = "Account.findByUsername", query = "SELECT a FROM Account a WHERE a.username = :username")
+        , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
+        , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+        , @NamedQuery(name = "Account.findByCountry", query = "SELECT a FROM Account a WHERE a.country = :country")
+        , @NamedQuery(name = "Account.findByCity", query = "SELECT a FROM Account a WHERE a.city = :city")
+        , @NamedQuery(name = "Account.findByGender", query = "SELECT a FROM Account a WHERE a.gender = :gender")
+        , @NamedQuery(name = "Account.findBySigniture", query = "SELECT a FROM Account a WHERE a.signiture = :signiture")
+        , @NamedQuery(name = "Account.findByCreateDate", query = "SELECT a FROM Account a WHERE a.createDate = :createDate")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -235,7 +223,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.Account[ username=" + username + " ]";
+        return "cn.mhtt1123.entity.Account[ username=" + username + " ]";
     }
-    
+
 }

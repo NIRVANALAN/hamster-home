@@ -3,61 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
- *
  * @author newcoderlife
  */
 @Embeddable
-public class ReceiverPK implements Serializable {
+public class SelectedProductPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "phoneno")
-    private String phoneno;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "address")
-    private String address;
+    @Column(name = "Product_productId")
+    private String productproductId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "Account_username")
     private String accountusername;
 
-    public ReceiverPK() {
+    public SelectedProductPK() {
     }
 
-    public ReceiverPK(String phoneno, String address, String accountusername) {
-        this.phoneno = phoneno;
-        this.address = address;
+    public SelectedProductPK(String productproductId, String accountusername) {
+        this.productproductId = productproductId;
         this.accountusername = accountusername;
     }
 
-    public String getPhoneno() {
-        return phoneno;
+    public String getProductproductId() {
+        return productproductId;
     }
 
-    public void setPhoneno(String phoneno) {
-        this.phoneno = phoneno;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setProductproductId(String productproductId) {
+        this.productproductId = productproductId;
     }
 
     public String getAccountusername() {
@@ -71,8 +56,7 @@ public class ReceiverPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (phoneno != null ? phoneno.hashCode() : 0);
-        hash += (address != null ? address.hashCode() : 0);
+        hash += (productproductId != null ? productproductId.hashCode() : 0);
         hash += (accountusername != null ? accountusername.hashCode() : 0);
         return hash;
     }
@@ -80,14 +64,11 @@ public class ReceiverPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReceiverPK)) {
+        if (!(object instanceof SelectedProductPK)) {
             return false;
         }
-        ReceiverPK other = (ReceiverPK) object;
-        if ((this.phoneno == null && other.phoneno != null) || (this.phoneno != null && !this.phoneno.equals(other.phoneno))) {
-            return false;
-        }
-        if ((this.address == null && other.address != null) || (this.address != null && !this.address.equals(other.address))) {
+        SelectedProductPK other = (SelectedProductPK) object;
+        if ((this.productproductId == null && other.productproductId != null) || (this.productproductId != null && !this.productproductId.equals(other.productproductId))) {
             return false;
         }
         if ((this.accountusername == null && other.accountusername != null) || (this.accountusername != null && !this.accountusername.equals(other.accountusername))) {
@@ -98,7 +79,7 @@ public class ReceiverPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.ReceiverPK[ phoneno=" + phoneno + ", address=" + address + ", accountusername=" + accountusername + " ]";
+        return "cn.mhtt1123.entity.SelectedProductPK[ productproductId=" + productproductId + ", accountusername=" + accountusername + " ]";
     }
-    
+
 }

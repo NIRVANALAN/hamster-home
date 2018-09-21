@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
- *
  * @author newcoderlife
  */
 @Embeddable
@@ -97,7 +96,7 @@ public class CommentPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.CommentPK[ postPostId=" + postPostId + ", postAccountusername=" + postAccountusername + ", accountusername=" + accountusername + " ]";
+        return "cn.mhtt1123.entity.CommentPK[ postPostId=" + postPostId + ", postAccountusername=" + postAccountusername + ", accountusername=" + accountusername + " ]";
     }
-    
+
 }

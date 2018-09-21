@@ -3,45 +3,60 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
- *
  * @author newcoderlife
  */
 @Embeddable
-public class PostPK implements Serializable {
+public class ReceiverPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "PostId")
-    private int postId;
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "phoneno")
+    private String phoneno;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "address")
+    private String address;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "Account_username")
     private String accountusername;
 
-    public PostPK() {
+    public ReceiverPK() {
     }
 
-    public PostPK(int postId, String accountusername) {
-        this.postId = postId;
+    public ReceiverPK(String phoneno, String address, String accountusername) {
+        this.phoneno = phoneno;
+        this.address = address;
         this.accountusername = accountusername;
     }
 
-    public int getPostId() {
-        return postId;
+    public String getPhoneno() {
+        return phoneno;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getAccountusername() {
@@ -55,7 +70,8 @@ public class PostPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) postId;
+        hash += (phoneno != null ? phoneno.hashCode() : 0);
+        hash += (address != null ? address.hashCode() : 0);
         hash += (accountusername != null ? accountusername.hashCode() : 0);
         return hash;
     }
@@ -63,11 +79,14 @@ public class PostPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PostPK)) {
+        if (!(object instanceof ReceiverPK)) {
             return false;
         }
-        PostPK other = (PostPK) object;
-        if (this.postId != other.postId) {
+        ReceiverPK other = (ReceiverPK) object;
+        if ((this.phoneno == null && other.phoneno != null) || (this.phoneno != null && !this.phoneno.equals(other.phoneno))) {
+            return false;
+        }
+        if ((this.address == null && other.address != null) || (this.address != null && !this.address.equals(other.address))) {
             return false;
         }
         if ((this.accountusername == null && other.accountusername != null) || (this.accountusername != null && !this.accountusername.equals(other.accountusername))) {
@@ -78,7 +97,7 @@ public class PostPK implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.PostPK[ postId=" + postId + ", accountusername=" + accountusername + " ]";
+        return "cn.mhtt1123.entity.ReceiverPK[ phoneno=" + phoneno + ", address=" + address + ", accountusername=" + accountusername + " ]";
     }
-    
+
 }

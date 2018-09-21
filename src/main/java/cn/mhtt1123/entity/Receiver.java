@@ -3,39 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Receiver")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Receiver.findAll", query = "SELECT r FROM Receiver r")
-    , @NamedQuery(name = "Receiver.findByNickname", query = "SELECT r FROM Receiver r WHERE r.nickname = :nickname")
-    , @NamedQuery(name = "Receiver.findByPhoneno", query = "SELECT r FROM Receiver r WHERE r.receiverPK.phoneno = :phoneno")
-    , @NamedQuery(name = "Receiver.findByAddress", query = "SELECT r FROM Receiver r WHERE r.receiverPK.address = :address")
-    , @NamedQuery(name = "Receiver.findByAccountusername", query = "SELECT r FROM Receiver r WHERE r.receiverPK.accountusername = :accountusername")})
+        @NamedQuery(name = "Receiver.findAll", query = "SELECT r FROM Receiver r")
+        , @NamedQuery(name = "Receiver.findByNickname", query = "SELECT r FROM Receiver r WHERE r.nickname = :nickname")
+        , @NamedQuery(name = "Receiver.findByPhoneno", query = "SELECT r FROM Receiver r WHERE r.receiverPK.phoneno = :phoneno")
+        , @NamedQuery(name = "Receiver.findByAddress", query = "SELECT r FROM Receiver r WHERE r.receiverPK.address = :address")
+        , @NamedQuery(name = "Receiver.findByAccountusername", query = "SELECT r FROM Receiver r WHERE r.receiverPK.accountusername = :accountusername")})
 public class Receiver implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -123,7 +112,7 @@ public class Receiver implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.Receiver[ receiverPK=" + receiverPK + " ]";
+        return "cn.mhtt1123.entity.Receiver[ receiverPK=" + receiverPK + " ]";
     }
-    
+
 }

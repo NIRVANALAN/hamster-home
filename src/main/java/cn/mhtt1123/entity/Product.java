@@ -3,39 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cn.mhtt1123.eneity;
+package cn.mhtt1123.entity;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- *
  * @author newcoderlife
  */
 @Entity
 @Table(name = "Product")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
-    , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
-    , @NamedQuery(name = "Product.findByProductPrice", query = "SELECT p FROM Product p WHERE p.productPrice = :productPrice")
-    , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
-    , @NamedQuery(name = "Product.findByRemainingQuantity", query = "SELECT p FROM Product p WHERE p.remainingQuantity = :remainingQuantity")})
+        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+        , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
+        , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")
+        , @NamedQuery(name = "Product.findByProductPrice", query = "SELECT p FROM Product p WHERE p.productPrice = :productPrice")
+        , @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")
+        , @NamedQuery(name = "Product.findByRemainingQuantity", query = "SELECT p FROM Product p WHERE p.remainingQuantity = :remainingQuantity")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -163,7 +153,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "cn.mhtt1123.eneity.Product[ productId=" + productId + " ]";
+        return "cn.mhtt1123.entity.Product[ productId=" + productId + " ]";
     }
-    
+
 }
