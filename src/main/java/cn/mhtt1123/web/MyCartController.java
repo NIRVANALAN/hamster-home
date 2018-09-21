@@ -46,7 +46,7 @@ public class MyCartController implements Serializable {
         removeByUser(account.getUsername());
         //System.out.println(ejbFacade.getTotalOfUser(account.getUsername()));
         //ofc.createOrder(r, selectedItemIndex);
-        return prepareList();
+        return prepareList_();
     }
 
     public void addOneByUser(Account account, Product product) {
@@ -116,6 +116,11 @@ public class MyCartController implements Serializable {
     public String prepareList() {
         recreateModel();
         return "List";
+    }
+
+    public String prepareList_() {
+        prepareList();
+        return "/orderForm/MyOrder";
     }
 
     public String prepareView() {

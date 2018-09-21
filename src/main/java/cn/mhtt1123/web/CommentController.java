@@ -80,7 +80,7 @@ public class CommentController implements Serializable {
         current = new Comment();
         current.setCommentPK(new CommentPK());
         selectedItemIndex = -1;
-        return "View";
+        return "/post/View";
     }
 
     public String create() {

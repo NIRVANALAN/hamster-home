@@ -28,7 +28,7 @@
 
             </p:panelGrid>
             <br/>
-            <h:commandLink action="#{postController.create}" value="publish"/>
+            <h:commandLink action="#{postController.create}" value="publish" rendered="#{accountController.selected.username!=null}"/>
             <br/>
             <br/>
             <h:commandLink action="#{postController.prepareList}" value="#{bundle.CreatePostShowAllLink}"

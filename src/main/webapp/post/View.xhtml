@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
@@ -15,7 +15,7 @@
             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
         </h:panelGroup>
         <h:form>
-            <h:panelGrid columns="2">
+            <p:panelGrid columns="2">
                 <h:outputText value="#{bundle.ViewPostLabel_postPK_postId}"/>
                 <h:outputText value="#{postController.selected.postPK.postId}"
                               title="#{bundle.ViewPostTitle_postPK_postId}"/>
@@ -29,32 +29,32 @@
                 <h:outputText value="#{postController.selected.content}" title="#{bundle.ViewPostTitle_content}"/>
                 <h:outputText value="#{bundle.ViewPostLabel_account}"/>
                 <h:outputText value="#{postController.selected.account}" title="#{bundle.ViewPostTitle_account}"/>
-            </h:panelGrid>
+            </p:panelGrid>
             <br/>
-            <h:dataTable value="#{postController.selected.commentList}" var="item" border="0" cellpadding="2"
+            <p:dataTable value="#{postController.selected.commentList}" var="item" border="0" cellpadding="2"
                          cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
                          style="border:solid 1px" rendered="#{postController.selected.commentList.size()!=0}">
-                <h:column>
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCommentTitle_content}"/>
                     </f:facet>
                     <h:outputText value="#{item.content}"/>
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCommentTitle_commentTime}"/>
                     </f:facet>
                     <h:outputText value="#{item.commentTime}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                     </h:outputText>
-                </h:column>
-                <h:column>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCommentTitle_account}"/>
                     </f:facet>
                     <h:outputText value="#{item.account}"/>
-                </h:column>
-                <h:column rendered="#{accountController.selected.username!=null}">
+                </p:column>
+                <p:column rendered="#{accountController.selected.username!=null}">
                     <f:facet name="header">
                         <h:outputText value="&nbsp;"/>
                     </f:facet>
@@ -63,8 +63,8 @@
                     <h:commandLink action="#{commentController.prepareEdit}" value="#{bundle.ListCommentEditLink}"/>
                     <h:outputText value=" "/>
                     <h:commandLink action="#{commentController.destroy}" value="#{bundle.ListCommentDestroyLink}"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
             <h:panelGroup layout="block" rendered="false">
                 <br/>
                 <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>

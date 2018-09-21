@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
@@ -15,47 +15,38 @@
             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
         </h:panelGroup>
         <h:form>
-            <h:panelGrid columns="2">
+            <p:panelGrid columns="2">
                 <h:outputLabel value="#{bundle.CreateAccountLabel_username}" for="username"/>
-                <h:inputText id="username" value="#{accountController.selected.username}"
+                <p:inputText id="username" value="#{accountController.selected.username}"
                              title="#{bundle.CreateAccountTitle_username}" required="true"
                              requiredMessage="#{bundle.CreateAccountRequiredMessage_username}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password"/>
-                <h:inputText id="password" value="#{accountController.selected.password}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password"/>
+                <p:inputText id="password" value="#{accountController.selected.password}"
                              title="#{bundle.CreateAccountTitle_password}" required="true"
                              requiredMessage="#{bundle.CreateAccountRequiredMessage_password}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_email}" for="email"/>
-                <h:inputText id="email" value="#{accountController.selected.email}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_email}" for="email"/>
+                <p:inputText id="email" value="#{accountController.selected.email}"
                              title="#{bundle.CreateAccountTitle_email}" required="true"
                              requiredMessage="#{bundle.CreateAccountRequiredMessage_email}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_country}" for="country"/>
-                <h:inputText id="country" value="#{accountController.selected.country}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_country}" for="country"/>
+                <p:inputText id="country" value="#{accountController.selected.country}"
                              title="#{bundle.CreateAccountTitle_country}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_city}" for="city"/>
-                <h:inputText id="city" value="#{accountController.selected.city}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_city}" for="city"/>
+                <p:inputText id="city" value="#{accountController.selected.city}"
                              title="#{bundle.CreateAccountTitle_city}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_gender}" for="gender"/>
-                <h:inputText id="gender" value="#{accountController.selected.gender}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_gender}" for="gender"/>
+                <p:inputText id="gender" value="#{accountController.selected.gender}"
                              title="#{bundle.CreateAccountTitle_gender}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_photo}" for="photo"/>
-                <h:inputTextarea rows="4" cols="30" id="photo" value="#{accountController.selected.photo}"
-                                 title="#{bundle.CreateAccountTitle_photo}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_signiture}" for="signiture"/>
-                <h:inputText id="signiture" value="#{accountController.selected.signiture}"
+                <p:outputLabel value="#{bundle.CreateAccountLabel_signiture}" for="signiture"/>
+                <p:inputTextarea cols="50" rows="10" id="signiture" value="#{accountController.selected.signiture}"
                              title="#{bundle.CreateAccountTitle_signiture}"/>
-                <h:outputLabel value="#{bundle.CreateAccountLabel_createDate}" for="createDate"/>
-                <h:inputText id="createDate" value="#{accountController.selected.createDate}"
-                             title="#{bundle.CreateAccountTitle_createDate}" required="true"
-                             requiredMessage="#{bundle.CreateAccountRequiredMessage_createDate}">
-                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
-                </h:inputText>
-            </h:panelGrid>
+            </p:panelGrid>
             <br/>
             <h:commandLink action="#{accountController.create}" value="#{bundle.CreateAccountSaveLink}"/>
             <br/>
             <br/>
             <h:commandLink action="#{accountController.prepareList}" value="#{bundle.CreateAccountShowAllLink}"
-                           immediate="true"/>
+                           immediate="true" rendered="#{accountController.selected.username eq 'admin'}"/>
             <br/>
             <br/>
             <h:link outcome="/index" value="#{bundle.CreateAccountIndexLink}"/>

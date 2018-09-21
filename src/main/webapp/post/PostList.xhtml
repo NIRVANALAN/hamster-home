@@ -55,7 +55,8 @@
                 </p:dataTable>
             </h:panelGroup>
             <br/>
-            <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ListPostCreateLink}"/>
+            <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ListPostCreateLink}"
+                           rendered="#{accountController.selected.username ne null}"/>
             <br/>
             <br/>
             <h:link outcome="/index" value="#{bundle.ListPostIndexLink}"/>

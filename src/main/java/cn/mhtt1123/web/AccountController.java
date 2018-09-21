@@ -36,7 +36,7 @@ public class AccountController implements Serializable {
         if (current != null) {
             current = new Account();
         }
-        return "index";
+        return "/index";
     }
 
     public String verifyDynamic() {
