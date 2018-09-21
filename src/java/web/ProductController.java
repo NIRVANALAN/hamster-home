@@ -1,5 +1,6 @@
 package web;
 
+import entity.Account;
 import entity.Product;
 import web.util.JsfUtil;
 import web.util.PaginationHelper;
@@ -8,6 +9,8 @@ import session.ProductFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.el.ELContext;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;

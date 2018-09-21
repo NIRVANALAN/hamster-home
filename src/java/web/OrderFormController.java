@@ -8,6 +8,7 @@ import web.util.PaginationHelper;
 import session.OrderFormFacade;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;

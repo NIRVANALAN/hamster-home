@@ -1,6 +1,10 @@
 package web;
 
+import entity.Account;
+import entity.Product;
+import entity.Receiver;
 import entity.SelectedProduct;
+import entity.SelectedProductPK;
 import web.util.JsfUtil;
 import web.util.PaginationHelper;
 import session.SelectedProductFacade;
@@ -8,6 +12,7 @@ import session.SelectedProductFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
