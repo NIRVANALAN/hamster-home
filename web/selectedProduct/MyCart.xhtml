@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSelectedProductTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    <br />
+                    <h:link outcome="/orderForm/List" value="Show All OrderForm Items" />
+                    <h:commandLink action="#{myCartController.prepareList}" value="Refresh"/>
+                    <br />
+                </h:panelGroup>
+                <h:commandLink action="#{myCartController.billingByUser(accountController.selected)}" value="#{bundle.Billing}"/>
+                <h:outputText escape="false" value="#{bundle.ListSelectedProductEmpty}" rendered="#{myCartController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{myCartController.items.rowCount > 0}">
+                    <h:outputText value="#{myCartController.pagination.pageFirstItem + 1}..#{myCartController.pagination.pageLastItem + 1}/#{selectedProductController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{myCartController.previous}" value="#{bundle.Previous} #{myCartController.pagination.pageSize}" rendered="#{selectedProductController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{myCartController.next}" value="#{bundle.Next} #{myCartController.pagination.pageSize}" rendered="#{selectedProductController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{myCartController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSelectedProductTitle_productNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productNum}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSelectedProductTitle_account}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.account}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSelectedProductTitle_product}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.product}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{myCartController.prepareView}" value="#{bundle.ListSelectedProductViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{myCartController.prepareEdit}" value="#{bundle.ListSelectedProductEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{myCartController.destroy}" value="#{bundle.ListSelectedProductDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{myCartController.prepareCreate}" value="#{bundle.ListSelectedProductCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSelectedProductIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

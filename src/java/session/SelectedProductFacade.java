@@ -43,4 +43,20 @@ public class SelectedProductFacade extends AbstractFacade<SelectedProduct> {
         return sum;
     }
     
+    public List<SelectedProduct> getSelectedProductOfUser(String username) {
+        Query query = em.createNamedQuery("SelectedProduct.findByAccountusername");
+        query.setParameter("accountusername", username);
+        List<SelectedProduct> result = query.getResultList();
+        return result;
+    }
+    
+    public List<SelectedProduct> getMyCart(String accountUsername,int [] range){
+        Query query = em.createNamedQuery("SelectedProduct.findByAccountusername");
+        query.setParameter("accountusername", accountUsername);
+        query.setFirstResult(range[0]);
+        query.setMaxResults(range[1]-range[0]+1);    
+        List<SelectedProduct> products =query.getResultList();
+        return products;
+    }
+    
 }
