@@ -1,9 +1,9 @@
 package cn.mhtt1123.web;
 
 import cn.mhtt1123.entity.*;
+import cn.mhtt1123.session.SelectedProductFacade;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import cn.mhtt1123.session.SelectedProductFacade;
 
 import javax.ejb.EJB;
 import javax.el.ELContext;
@@ -221,8 +221,8 @@ public class SelectedProductController implements Serializable {
         current.getSelectedProductPK().setProductproductId(current.getProduct().getProductId());
         try {
             getFacade().create(current);
-        }catch(Exception e) {
-            current.setProductNum(current.getProductNum()+1);
+        } catch (Exception e) {
+            current.setProductNum(current.getProductNum() + 1);
             System.out.println("addOneSame");
             update();
         }

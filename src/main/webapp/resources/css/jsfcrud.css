@@ -1,4 +1,4 @@
-root { 
+root {
     display: block;
 }
 
@@ -68,7 +68,6 @@ tr.jsfcrud_odd_row {
     background-color: #fefeff;
     color: #4e6a71;
 }
-
 
 tr.jsfcrud_even_row {
     background-color: #eff5fa;
