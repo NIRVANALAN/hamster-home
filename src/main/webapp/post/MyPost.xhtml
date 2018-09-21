@@ -3,7 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>My Post</title>
 </h:head>
@@ -27,29 +28,29 @@
                 <h:commandLink action="#{myPostController.next}"
                                value="#{bundle.Next} #{myPostController.pagination.pageSize}"
                                rendered="#{myPostController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{myPostController.items}" var="item" border="0" cellpadding="2" cellspacing="0"
+                <p:dataTable value="#{myPostController.items}" var="item" border="0" cellpadding="2" cellspacing="0"
                              rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListPostTitle_title}"/>
                         </f:facet>
                         <h:commandLink value="#{item.title}" action="#{myPostController.prepareView}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListPostTitle_pubTime}"/>
                         </f:facet>
                         <h:outputText value="#{item.pubTime}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
                         </h:outputText>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListPostTitle_account}"/>
                         </f:facet>
                         <h:outputText value="#{item.account}"/>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </h:panelGroup>
             <br/>
             <h:commandLink action="#{myPostController.prepareCreate}" value="#{bundle.ListPostCreateLink}"/>

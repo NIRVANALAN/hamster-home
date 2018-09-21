@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
@@ -26,7 +27,7 @@
                 <h:commandLink action="#{selectedProductController.next}"
                                value="#{bundle.Next} #{selectedProductController.pagination.pageSize}"
                                rendered="#{selectedProductController.pagination.hasNextPage}"/>&nbsp;
-                <h:dataTable value="#{selectedProductController.items}" var="item" border="0" cellpadding="2"
+                <p:dataTable value="#{selectedProductController.items}" var="item" border="0" cellpadding="2"
                              cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all"
                              style="border:solid 1px">
                     <h:column>
@@ -45,7 +46,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListSelectedProductTitle_product}"/>
                         </f:facet>
-                        <h:outputText value="#{item.product}"/>
+                        <h:outputText value="#{item.product.productName}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -60,7 +61,7 @@
                         <h:commandLink action="#{selectedProductController.destroy}"
                                        value="#{bundle.ListSelectedProductDestroyLink}"/>
                     </h:column>
-                </h:dataTable>
+                </p:dataTable>
             </h:panelGroup>
             <br/>
             <h:commandLink action="#{selectedProductController.prepareCreate}"
