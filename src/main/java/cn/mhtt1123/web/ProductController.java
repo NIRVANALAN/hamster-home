@@ -1,11 +1,14 @@
 package cn.mhtt1123.web;
 
-import cn.mhtt1123.web.util.JsfUtil;
-import cn.mhtt1123.web.util.PaginationHelper;
+import cn.mhtt1123.entity.Account;
 import cn.mhtt1123.entity.Product;
 import cn.mhtt1123.session.ProductFacade;
+import cn.mhtt1123.web.util.JsfUtil;
+import cn.mhtt1123.web.util.PaginationHelper;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.el.ELContext;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -190,6 +193,27 @@ public class ProductController implements Serializable {
 
     public Product getProduct(java.lang.String id) {
         return ejbFacade.find(id);
+    }
+
+    public String addByUser(String username) {
+        current = (Product) getItems().getRowData();
+        System.out.println(username);
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        //AccountController ac = (AccountController) elContext.getELResolver().getValue(elContext, null, "accountController");
+        AccountController act = (AccountController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "accountController");
+        SelectedProductController spc = (SelectedProductController) context.getApplication().getELResolver().getValue(elContext, null, "selectedProductController");
+        Account a = act.getAccount(username);
+        System.out.println(a.getUsername());
+        try {
+            spc.addOneByUser(a, current);
+        } catch (EJBException e) {
+            System.out.println("Add one more same");
+        } finally {
+            current.setRemainingQuantity(current.getRemainingQuantity() - 1);
+            update();
+            return "List";
+        }
     }
 
     @FacesConverter(forClass = Product.class)

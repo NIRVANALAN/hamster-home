@@ -1,10 +1,11 @@
 package cn.mhtt1123.web;
 
+import cn.mhtt1123.entity.OrderForm;
 import cn.mhtt1123.entity.OrderFormPK;
+import cn.mhtt1123.entity.Receiver;
+import cn.mhtt1123.session.OrderFormFacade;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import cn.mhtt1123.entity.OrderForm;
-import cn.mhtt1123.session.OrderFormFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +18,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ResourceBundle;
 
 
@@ -201,6 +203,19 @@ public class OrderFormController implements Serializable {
 
     public OrderForm getOrderForm(OrderFormPK id) {
         return ejbFacade.find(id);
+    }
+
+    public void createOrder(Receiver r, int sum) {
+        current = new OrderForm();
+        current.setOrderFormPK(new OrderFormPK());
+        current.setReceiver(r);
+        current.getOrderFormPK().setReceiveraddress(current.getReceiver().getReceiverPK().getAddress());
+        current.getOrderFormPK().setReceiverAccountusername(current.getReceiver().getReceiverPK().getAccountusername());
+        current.getOrderFormPK().setReceiverphoneno(current.getReceiver().getReceiverPK().getPhoneno());
+        System.out.println(current.getReceiver().getNickname());
+        current.setFee(BigInteger.valueOf(sum));
+        getFacade().create(current);
+        update();
     }
 
     @FacesConverter(forClass = OrderForm.class)

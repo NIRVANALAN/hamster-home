@@ -1,10 +1,10 @@
 package cn.mhtt1123.web;
 
+import cn.mhtt1123.entity.Receiver;
 import cn.mhtt1123.entity.ReceiverPK;
+import cn.mhtt1123.session.ReceiverFacade;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import cn.mhtt1123.entity.Receiver;
-import cn.mhtt1123.session.ReceiverFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -195,6 +195,10 @@ public class ReceiverController implements Serializable {
 
     public Receiver getReceiver(ReceiverPK id) {
         return ejbFacade.find(id);
+    }
+
+    public Receiver getByUserName(String username) {
+        return ejbFacade.getByUserName(username);
     }
 
     @FacesConverter(forClass = Receiver.class)

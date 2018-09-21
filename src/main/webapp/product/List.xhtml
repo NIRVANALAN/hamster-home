@@ -60,6 +60,9 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{productController.addByUser(accountController.selected.username)}" value="#{bundle.AddToCart}"/>
+                            <h:outputText value=" "/>
                             <h:commandLink action="#{productController.prepareView}" value="#{bundle.ListProductViewLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{productController.prepareEdit}" value="#{bundle.ListProductEditLink}"/>

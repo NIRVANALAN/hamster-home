@@ -1,12 +1,12 @@
 package cn.mhtt1123.web;
 
-import cn.mhtt1123.entity.SelectedProductPK;
+import cn.mhtt1123.entity.*;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import cn.mhtt1123.entity.SelectedProduct;
 import cn.mhtt1123.session.SelectedProductFacade;
 
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -197,6 +197,36 @@ public class SelectedProductController implements Serializable {
 
     public SelectedProduct getSelectedProduct(SelectedProductPK id) {
         return ejbFacade.find(id);
+    }
+
+    public void billingByUser(Account account) {
+        System.out.println(account.getUsername());
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        OrderFormController ofc = (OrderFormController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "orderFormController");
+        ReceiverController rc = (ReceiverController) context.getApplication().getELResolver().getValue(context.getELContext(), null, "receiverController");
+        Receiver r = rc.getByUserName(account.getUsername());
+        ofc.createOrder(r, ejbFacade.getTotalOfUser(account.getUsername()));
+
+    }
+
+    public void addOneByUser(Account account, Product product) {
+        current = new SelectedProduct();
+        current.setAccount(account);
+        current.setProduct(product);
+        current.setProductNum(1);
+        current.setSelectedProductPK(new SelectedProductPK());
+        System.out.println(current.getProduct().getProductId());
+        current.getSelectedProductPK().setAccountusername(current.getAccount().getUsername());
+        current.getSelectedProductPK().setProductproductId(current.getProduct().getProductId());
+        try {
+            getFacade().create(current);
+        }catch(Exception e) {
+            current.setProductNum(current.getProductNum()+1);
+            System.out.println("addOneSame");
+            update();
+        }
+
     }
 
     @FacesConverter(forClass = SelectedProduct.class)
