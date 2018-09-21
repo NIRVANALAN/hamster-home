@@ -11,7 +11,7 @@ and open the template in the editor.
 <body>
 <ui:composition>
     <div style="left: 0px;top: 0px;
-                 width: 4000 ;height: 20px;
+                 width: 4000px ;height: 20px;
                  line-height: 29px;
                  background-color: rgba(255, 255, 255, 1);color: rgba(244, 167, 185, 1);
                  font-size: 18px;
@@ -38,12 +38,14 @@ and open the template in the editor.
             }
         </style>
         <div style="left: 1175px;top: 5px;position: absolute;
-                     width: 40px;height: 27px;
+                     width: 80px;height: 27px;
                      color: rgba(0, 0, 0, 1);
                      font-size: 12px;
                      text-align: left;
                      font-family: SourceHanSansSC-regular;">
-            <h:link value="登录" outcome="login"></h:link> |
+            <h:link value="登录" outcome="login" rendered="#{accountController.selected.username eq null}">|</h:link>
+            <h:outputText value="Welcome #{accountController.selected.username}"
+                          rendered="#{accountController.selected.username ne null}">|</h:outputText>
         </div>
         <div style="left: 1215px;top: 5px;position: absolute;
                      width: 40px;height: 27px;
@@ -51,7 +53,7 @@ and open the template in the editor.
                      font-size: 12px;
                      text-align: left;
                      font-family: SourceHanSansSC-regular;">
-            <h:link value="注册" outcome="registe"></h:link> |
+            <h:link value="注册" outcome="registe" rendered="#{accountController.selected.username eq null}">|</h:link>
         </div>
         <div style="left: 1255px;top: 5px;position: absolute;
                      width: 50px;height: 27px;
@@ -59,7 +61,7 @@ and open the template in the editor.
                      font-size: 12px;
                      text-align: left;
                      font-family: SourceHanSansSC-regular;">
-            <h:link value="购物车" outcome="shoppingCart"></h:link>
+            <h:link value="购物车" outcome="/selectedProduct/MyCart"></h:link>
         </div>
         <h:graphicImage style="left: 1298px;top: 8px;position: absolute;width: 20px;height: 20px;"
                         value="resources/image/shoppingCart.png"/>
