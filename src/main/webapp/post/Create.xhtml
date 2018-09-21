@@ -15,7 +15,7 @@
             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
         </h:panelGroup>
         <h:form>
-            <h:panelGrid columns="2">
+            <p:panelGrid columns="2">
                 <h:outputLabel value="#{bundle.CreatePostLabel_title}" for="title"/>
                 <h:inputText id="title" value="#{postController.selected.title}" title="#{bundle.CreatePostTitle_title}"
                              required="true" requiredMessage="#{bundle.CreatePostRequiredMessage_title}"/>
@@ -24,11 +24,11 @@
                                  title="#{bundle.CreatePostTitle_content}" required="true"
                                  requiredMessage="#{bundle.CreatePostRequiredMessage_content}"
                                  counterTemplate="{0} characters remaining."/>
-                <h:outputLabel value="#{bundle.CreatePostLabel_account}" for="account"/>
+                <h:outputLabel value="#{bundle.CreatePostLabel_account}" for="account" rendered="false"/>
 
-            </h:panelGrid>
+            </p:panelGrid>
             <br/>
-            <h:commandLink action="#{postController.create}" value="#{bundle.PublishPost}"/>
+            <h:commandLink action="#{postController.create}" value="publish"/>
             <br/>
             <br/>
             <h:commandLink action="#{postController.prepareList}" value="#{bundle.CreatePostShowAllLink}"
