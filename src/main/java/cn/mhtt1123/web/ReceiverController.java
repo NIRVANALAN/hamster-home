@@ -1,9 +1,10 @@
 package cn.mhtt1123.web;
 
+import cn.mhtt1123.entity.ReceiverPK;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import entity.Receiver;
-import session.ReceiverFacade;
+import cn.mhtt1123.entity.Receiver;
+import cn.mhtt1123.session.ReceiverFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +26,7 @@ public class ReceiverController implements Serializable {
     private Receiver current;
     private DataModel items = null;
     @EJB
-    private session.ReceiverFacade ejbFacade;
+    private ReceiverFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -35,7 +36,7 @@ public class ReceiverController implements Serializable {
     public Receiver getSelected() {
         if (current == null) {
             current = new Receiver();
-            current.setReceiverPK(new entity.ReceiverPK());
+            current.setReceiverPK(new ReceiverPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +77,7 @@ public class ReceiverController implements Serializable {
 
     public String prepareCreate() {
         current = new Receiver();
-        current.setReceiverPK(new entity.ReceiverPK());
+        current.setReceiverPK(new ReceiverPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -192,7 +193,7 @@ public class ReceiverController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Receiver getReceiver(entity.ReceiverPK id) {
+    public Receiver getReceiver(ReceiverPK id) {
         return ejbFacade.find(id);
     }
 
@@ -212,17 +213,17 @@ public class ReceiverController implements Serializable {
             return controller.getReceiver(getKey(value));
         }
 
-        entity.ReceiverPK getKey(String value) {
-            entity.ReceiverPK key;
+        ReceiverPK getKey(String value) {
+            ReceiverPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entity.ReceiverPK();
+            key = new ReceiverPK();
             key.setPhoneno(values[0]);
             key.setAddress(values[1]);
             key.setAccountusername(values[2]);
             return key;
         }
 
-        String getStringKey(entity.ReceiverPK value) {
+        String getStringKey(ReceiverPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getPhoneno());
             sb.append(SEPARATOR);

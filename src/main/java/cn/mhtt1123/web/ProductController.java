@@ -2,8 +2,8 @@ package cn.mhtt1123.web;
 
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import entity.Product;
-import session.ProductFacade;
+import cn.mhtt1123.entity.Product;
+import cn.mhtt1123.session.ProductFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +25,7 @@ public class ProductController implements Serializable {
     private Product current;
     private DataModel items = null;
     @EJB
-    private session.ProductFacade ejbFacade;
+    private ProductFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

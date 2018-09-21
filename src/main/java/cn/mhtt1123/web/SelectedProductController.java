@@ -1,9 +1,10 @@
 package cn.mhtt1123.web;
 
+import cn.mhtt1123.entity.SelectedProductPK;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import entity.SelectedProduct;
-import session.SelectedProductFacade;
+import cn.mhtt1123.entity.SelectedProduct;
+import cn.mhtt1123.session.SelectedProductFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +26,7 @@ public class SelectedProductController implements Serializable {
     private SelectedProduct current;
     private DataModel items = null;
     @EJB
-    private session.SelectedProductFacade ejbFacade;
+    private SelectedProductFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -35,7 +36,7 @@ public class SelectedProductController implements Serializable {
     public SelectedProduct getSelected() {
         if (current == null) {
             current = new SelectedProduct();
-            current.setSelectedProductPK(new entity.SelectedProductPK());
+            current.setSelectedProductPK(new SelectedProductPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -76,7 +77,7 @@ public class SelectedProductController implements Serializable {
 
     public String prepareCreate() {
         current = new SelectedProduct();
-        current.setSelectedProductPK(new entity.SelectedProductPK());
+        current.setSelectedProductPK(new SelectedProductPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -194,7 +195,7 @@ public class SelectedProductController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public SelectedProduct getSelectedProduct(entity.SelectedProductPK id) {
+    public SelectedProduct getSelectedProduct(SelectedProductPK id) {
         return ejbFacade.find(id);
     }
 
@@ -214,16 +215,16 @@ public class SelectedProductController implements Serializable {
             return controller.getSelectedProduct(getKey(value));
         }
 
-        entity.SelectedProductPK getKey(String value) {
-            entity.SelectedProductPK key;
+        SelectedProductPK getKey(String value) {
+            SelectedProductPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entity.SelectedProductPK();
+            key = new SelectedProductPK();
             key.setProductproductId(values[0]);
             key.setAccountusername(values[1]);
             return key;
         }
 
-        String getStringKey(entity.SelectedProductPK value) {
+        String getStringKey(SelectedProductPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getProductproductId());
             sb.append(SEPARATOR);

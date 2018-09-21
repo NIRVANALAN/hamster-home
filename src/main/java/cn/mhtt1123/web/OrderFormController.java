@@ -1,9 +1,10 @@
 package cn.mhtt1123.web;
 
+import cn.mhtt1123.entity.OrderFormPK;
 import cn.mhtt1123.web.util.JsfUtil;
 import cn.mhtt1123.web.util.PaginationHelper;
-import entity.OrderForm;
-import session.OrderFormFacade;
+import cn.mhtt1123.entity.OrderForm;
+import cn.mhtt1123.session.OrderFormFacade;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -27,7 +28,7 @@ public class OrderFormController implements Serializable {
     private OrderForm current;
     private DataModel items = null;
     @EJB
-    private session.OrderFormFacade ejbFacade;
+    private OrderFormFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -37,7 +38,7 @@ public class OrderFormController implements Serializable {
     public OrderForm getSelected() {
         if (current == null) {
             current = new OrderForm();
-            current.setOrderFormPK(new entity.OrderFormPK());
+            current.setOrderFormPK(new OrderFormPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -78,7 +79,7 @@ public class OrderFormController implements Serializable {
 
     public String prepareCreate() {
         current = new OrderForm();
-        current.setOrderFormPK(new entity.OrderFormPK());
+        current.setOrderFormPK(new OrderFormPK());
         selectedItemIndex = -1;
         return "Create";
     }
@@ -198,7 +199,7 @@ public class OrderFormController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public OrderForm getOrderForm(entity.OrderFormPK id) {
+    public OrderForm getOrderForm(OrderFormPK id) {
         return ejbFacade.find(id);
     }
 
@@ -218,10 +219,10 @@ public class OrderFormController implements Serializable {
             return controller.getOrderForm(getKey(value));
         }
 
-        entity.OrderFormPK getKey(String value) {
-            entity.OrderFormPK key;
+        OrderFormPK getKey(String value) {
+            OrderFormPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entity.OrderFormPK();
+            key = new OrderFormPK();
             key.setCreateTime(java.sql.Date.valueOf(values[0]));
             key.setReceiveraddress(values[1]);
             key.setReceiverphoneno(values[2]);
@@ -229,7 +230,7 @@ public class OrderFormController implements Serializable {
             return key;
         }
 
-        String getStringKey(entity.OrderFormPK value) {
+        String getStringKey(OrderFormPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getCreateTime());
             sb.append(SEPARATOR);
