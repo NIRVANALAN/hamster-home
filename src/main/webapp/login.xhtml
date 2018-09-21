@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        Login
+    </h:head>
+    <h:body>
+        <div style="margin-right: auto;margin-left: auto">
+            <h:link outcome="index" value="index" style="margin-left: 1000px;margin-right: auto"/>
+        </div>
+        <h2>Hi! Welcome to Hasmter-home, please log in:</h2>
+        <h:form id="loginForm">
+            <p:panelGrid columns="3" >
+            <h:outputLabel value="#{bundle.CreateAccountLabel_username}" for="username"/>
+            <h:inputText id="username" value="#{accountController.selected.username}" title="#{bundle.CreateAccountTitle_username}"
+                         required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_username}"/>
+            <p:message for="username"/>
+
+            <h:outputLabel value="#{bundle.CreateAccountLabel_password}" for="password"/>
+            <h:inputSecret id="password" value="#{accountController.selected.password}" title="#{bundle.CreateAccountTitle_password}"
+                         required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_password}"/>
+            <p:message for="password"/>
+
+            </p:panelGrid>
+            <br/>
+            <h:commandButton  value="Login " action="#{accountController.verifyDynamic}"/>
+            <h:commandButton type="reset" value="reset"/>
+        </h:form>
+
+        <!--        <h:form>
+                    <p:panelGrid style = "margin-top: 20px" columns="2">
+                        <h:outputText value="Name:" />
+                        <h:outputText value="Kobe Bryant" />
+        
+                        <h:outputText value="Team:" />
+                        <h:outputText value="Los Angeles Lakers" />
+        
+                        <h:outputText value="Position:" />
+                        <h:outputText value="Shooting Guard" />
+        
+                        <h:outputText value="Number:" />
+                        <h:inputText required="true"/>
+                    </p:panelGrid>
+                    <h:commandButton value="submit" action="/login"/>
+                </h:form>-->
+        <!--<p:commandButton-->
+        
+        <hr/>
+    </h:body>
+</html>

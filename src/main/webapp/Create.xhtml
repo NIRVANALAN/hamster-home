@@ -33,7 +33,7 @@
                     <h:inputText id="signiture" value="#{accountController.selected.signiture}" title="#{bundle.CreateAccountTitle_signiture}" />
                     <h:outputLabel value="#{bundle.CreateAccountLabel_createDate}" for="createDate" />
                     <h:inputText id="createDate" value="#{accountController.selected.createDate}" title="#{bundle.CreateAccountTitle_createDate}" required="true" requiredMessage="#{bundle.CreateAccountRequiredMessage_createDate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
                 </h:panelGrid>
                 <br />

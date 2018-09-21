@@ -3,37 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="SelectedProductEditDlg" widgetVar="SelectedProductEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSelectedProductTitle}">
-            <h:form id="SelectedProductEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{selectedProductController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSelectedProductLabel_productNum}" for="productNum" />
-                        <p:inputText id="productNum" value="#{selectedProductController.selected.productNum}" title="#{bundle.EditSelectedProductTitle_productNum}" />
-                        <p:outputLabel value="#{bundle.EditSelectedProductLabel_account}" for="account" />
-                        <p:selectOneMenu id="account" value="#{selectedProductController.selected.account}" required="true" requiredMessage="#{bundle.EditSelectedProductRequiredMessage_account}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{accountController.itemsAvailableSelectOne}"
-                                           var="accountItem"
-                                           itemValue="#{accountItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditSelectedProductLabel_product}" for="product" />
-                        <p:selectOneMenu id="product" value="#{selectedProductController.selected.product}" required="true" requiredMessage="#{bundle.EditSelectedProductRequiredMessage_product}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{productController.itemsAvailableSelectOne}"
-                                           var="productItem"
-                                           itemValue="#{productItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{selectedProductController.update}" value="#{bundle.Save}" update="display,:SelectedProductListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SelectedProductEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SelectedProductEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSelectedProductTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSelectedProductLabel_productNum}" for="productNum" />
+                    <h:inputText id="productNum" value="#{selectedProductController.selected.productNum}" title="#{bundle.EditSelectedProductTitle_productNum}" />
+                    <h:outputLabel value="#{bundle.EditSelectedProductLabel_account}" for="account" />
+                    <h:selectOneMenu id="account" value="#{selectedProductController.selected.account}" title="#{bundle.EditSelectedProductTitle_account}" required="true" requiredMessage="#{bundle.EditSelectedProductRequiredMessage_account}">
+                        <f:selectItems value="#{accountController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSelectedProductLabel_product}" for="product" />
+                    <h:selectOneMenu id="product" value="#{selectedProductController.selected.product}" title="#{bundle.EditSelectedProductTitle_product}" required="true" requiredMessage="#{bundle.EditSelectedProductRequiredMessage_product}">
+                        <f:selectItems value="#{productController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{selectedProductController.update}" value="#{bundle.EditSelectedProductSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSelectedProductViewLink}"/>
+                <br />
+                <h:commandLink action="#{selectedProductController.prepareList}" value="#{bundle.EditSelectedProductShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSelectedProductIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

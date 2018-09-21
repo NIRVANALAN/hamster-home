@@ -16,11 +16,11 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewPostLabel_postPK_postId}"/>
-                    <h:outputText value="#{postController.selected.postPK.postId}" title="#{bundle.ViewPostTitle_postPK_postId}"/>
+                    <h:outputText value="#{myPostController.selected.postPK.postId}" title="#{bundle.ViewPostTitle_postPK_postId}"/>
                     <h:outputText value="#{bundle.ViewPostLabel_title}"/>
-                    <h:outputText value="#{postController.selected.title}" title="#{bundle.ViewPostTitle_title}"/>
+                    <h:outputText value="#{myPostController.selected.title}" title="#{bundle.ViewPostTitle_title}"/>
                     <h:outputText value="#{bundle.ViewPostLabel_pubTime}"/>
-                    <h:outputText value="#{postController.selected.pubTime}" title="#{bundle.ViewPostTitle_pubTime}">
+                    <h:outputText value="#{myPostController.selected.pubTime}" title="#{bundle.ViewPostTitle_pubTime}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewPostLabel_content}"/>
@@ -29,7 +29,7 @@
                     <h:outputText value="#{postController.selected.account}" title="#{bundle.ViewPostTitle_account}"/>
                 </h:panelGrid>
                 <br />
-                <h:dataTable value="#{postController.selected.commentCollection}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" rendered="#{postController.selected.commentCollection.size()!=0}">
+                <h:dataTable value="#{myPostController.selected.commentCollection}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px" rendered="#{myPostController.selected.commentCollection.size()!=0}">;
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListCommentTitle_content}"/>
@@ -50,7 +50,13 @@
                         </f:facet>
                         <h:outputText value="#{item.account}"/>
                     </h:column>
-                    <h:column rendered="#{accountController.selected.username!=null}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListCommentTitle_post}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.post}"/>
+                    </h:column>
+                    <h:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
@@ -61,19 +67,15 @@
                         <h:commandLink action="#{commentController.destroy}" value="#{bundle.ListCommentDestroyLink}"/>
                     </h:column>
                 </h:dataTable>
-                <h:panelGroup layout="block" rendered="false">
-                    <br />
-                    <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
-                    <br />
-                    <br />
-                    <h:link outcome="Edit" value="#{bundle.ViewPostEditLink}"/>
-                    <br />
-                    <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ViewPostCreateLink}" />
-                    <br />
-                    <h:commandLink action="#{postController.prepareList}" value="#{bundle.ViewPostShowAllLink}"/>
-                </h:panelGroup>
                 <br />
-                <h:link outcome="/comment/Create.xhtml" value="Comment"/>
+                <h:commandLink action="#{postController.destroyAndView}" value="#{bundle.ViewPostDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPostEditLink}"/>
+                <br />
+                <h:commandLink action="#{postController.prepareCreate}" value="#{bundle.ViewPostCreateLink}" />
+                <br />
+                <h:commandLink action="#{postController.prepareList}" value="#{bundle.ViewPostShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewPostIndexLink}"/>

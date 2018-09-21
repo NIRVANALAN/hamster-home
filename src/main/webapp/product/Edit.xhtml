@@ -3,33 +3,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ProductEditDlg" widgetVar="ProductEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProductTitle}">
-            <h:form id="ProductEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{productController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProductLabel_productId}" for="productId" />
-                        <p:inputText id="productId" value="#{productController.selected.productId}" title="#{bundle.EditProductTitle_productId}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productId}"/>
-                        <p:outputLabel value="#{bundle.EditProductLabel_productName}" for="productName" />
-                        <p:inputText id="productName" value="#{productController.selected.productName}" title="#{bundle.EditProductTitle_productName}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productName}"/>
-                        <p:outputLabel value="#{bundle.EditProductLabel_productPrice}" for="productPrice" />
-                        <p:inputText id="productPrice" value="#{productController.selected.productPrice}" title="#{bundle.EditProductTitle_productPrice}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productPrice}"/>
-                        <p:outputLabel value="#{bundle.EditProductLabel_productPhoto}" for="productPhoto" />
-                        <p:inputTextarea rows="4" cols="30" id="productPhoto" value="#{productController.selected.productPhoto}" title="#{bundle.EditProductTitle_productPhoto}" />
-                        <p:outputLabel value="#{bundle.EditProductLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{productController.selected.description}" title="#{bundle.EditProductTitle_description}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_description}"/>
-                        <p:outputLabel value="#{bundle.EditProductLabel_remainingQuantity}" for="remainingQuantity" />
-                        <p:inputText id="remainingQuantity" value="#{productController.selected.remainingQuantity}" title="#{bundle.EditProductTitle_remainingQuantity}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_remainingQuantity}"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{productController.update}" value="#{bundle.Save}" update="display,:ProductListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProductTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProductLabel_productId}" for="productId" />
+                    <h:inputText id="productId" value="#{productController.selected.productId}" title="#{bundle.EditProductTitle_productId}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productId}"/>
+                    <h:outputLabel value="#{bundle.EditProductLabel_productName}" for="productName" />
+                    <h:inputText id="productName" value="#{productController.selected.productName}" title="#{bundle.EditProductTitle_productName}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productName}"/>
+                    <h:outputLabel value="#{bundle.EditProductLabel_productPrice}" for="productPrice" />
+                    <h:inputText id="productPrice" value="#{productController.selected.productPrice}" title="#{bundle.EditProductTitle_productPrice}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_productPrice}"/>
+                    <h:outputLabel value="#{bundle.EditProductLabel_productPhoto}" for="productPhoto" />
+                    <h:inputTextarea rows="4" cols="30" id="productPhoto" value="#{productController.selected.productPhoto}" title="#{bundle.EditProductTitle_productPhoto}" />
+                    <h:outputLabel value="#{bundle.EditProductLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{productController.selected.description}" title="#{bundle.EditProductTitle_description}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_description}"/>
+                    <h:outputLabel value="#{bundle.EditProductLabel_remainingQuantity}" for="remainingQuantity" />
+                    <h:inputText id="remainingQuantity" value="#{productController.selected.remainingQuantity}" title="#{bundle.EditProductTitle_remainingQuantity}" required="true" requiredMessage="#{bundle.EditProductRequiredMessage_remainingQuantity}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{productController.update}" value="#{bundle.EditProductSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditProductViewLink}"/>
+                <br />
+                <h:commandLink action="#{productController.prepareList}" value="#{bundle.EditProductShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditProductIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

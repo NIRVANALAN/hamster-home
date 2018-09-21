@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSelectedProductTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSelectedProductLabel_productNum}"/>
+                    <h:outputText value="#{selectedProductController.selected.productNum}" title="#{bundle.ViewSelectedProductTitle_productNum}"/>
+                    <h:outputText value="#{bundle.ViewSelectedProductLabel_account}"/>
+                    <h:outputText value="#{selectedProductController.selected.account}" title="#{bundle.ViewSelectedProductTitle_account}"/>
+                    <h:outputText value="#{bundle.ViewSelectedProductLabel_product}"/>
+                    <h:outputText value="#{selectedProductController.selected.product}" title="#{bundle.ViewSelectedProductTitle_product}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{selectedProductController.destroyAndView}" value="#{bundle.ViewSelectedProductDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSelectedProductEditLink}"/>
+                <br />
+                <h:commandLink action="#{selectedProductController.prepareCreate}" value="#{bundle.ViewSelectedProductCreateLink}" />
+                <br />
+                <h:commandLink action="#{selectedProductController.prepareList}" value="#{bundle.ViewSelectedProductShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSelectedProductIndexLink}"/>
 
-        <p:dialog id="SelectedProductViewDlg" widgetVar="SelectedProductViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSelectedProductTitle}">
-            <h:form id="SelectedProductViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{selectedProductController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSelectedProductLabel_productNum}"/>
-                        <h:outputText value="#{selectedProductController.selected.productNum}" title="#{bundle.ViewSelectedProductTitle_productNum}"/>
-                        <h:outputText value="#{bundle.ViewSelectedProductLabel_account}"/>
-                        <h:outputText value="#{selectedProductController.selected.account}" title="#{bundle.ViewSelectedProductTitle_account}"/>
-                        <h:outputText value="#{bundle.ViewSelectedProductLabel_product}"/>
-                        <h:outputText value="#{selectedProductController.selected.product}" title="#{bundle.ViewSelectedProductTitle_product}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="SelectedProductViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>
