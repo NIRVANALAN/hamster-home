@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateOrderFormTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateOrderFormLabel_orderFormPK_createTime}" for="orderFormPK_createTime" />
-                    <h:inputText id="orderFormPK_createTime" value="#{orderFormController.selected.orderFormPK.createTime}" title="#{bundle.CreateOrderFormTitle_orderFormPK_createTime}" required="true" requiredMessage="#{bundle.CreateOrderFormRequiredMessage_orderFormPK_createTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateOrderFormLabel_fee}" for="fee" />
-                    <h:inputText id="fee" value="#{orderFormController.selected.fee}" title="#{bundle.CreateOrderFormTitle_fee}" />
-                    <h:outputLabel value="#{bundle.CreateOrderFormLabel_receiver}" for="receiver" />
-                    <h:selectOneMenu id="receiver" value="#{orderFormController.selected.receiver}" title="#{bundle.CreateOrderFormTitle_receiver}" required="true" requiredMessage="#{bundle.CreateOrderFormRequiredMessage_receiver}">
-                        <f:selectItems value="#{receiverController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{orderFormController.create}" value="#{bundle.CreateOrderFormSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{orderFormController.prepareList}" value="#{bundle.CreateOrderFormShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateOrderFormIndexLink}"/>
-            </h:form>
-        </ui:define>
-    </ui:composition>
+<ui:composition template="/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="#{bundle.CreateOrderFormTitle}"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:panelGroup id="messagePanel" layout="block">
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+        </h:panelGroup>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="#{bundle.CreateOrderFormLabel_orderFormPK_createTime}"
+                               for="orderFormPK_createTime"/>
+                <h:inputText id="orderFormPK_createTime" value="#{orderFormController.selected.orderFormPK.createTime}"
+                             title="#{bundle.CreateOrderFormTitle_orderFormPK_createTime}" required="true"
+                             requiredMessage="#{bundle.CreateOrderFormRequiredMessage_orderFormPK_createTime}">
+                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss"/>
+                </h:inputText>
+                <h:outputLabel value="#{bundle.CreateOrderFormLabel_fee}" for="fee"/>
+                <h:inputText id="fee" value="#{orderFormController.selected.fee}"
+                             title="#{bundle.CreateOrderFormTitle_fee}"/>
+                <h:outputLabel value="#{bundle.CreateOrderFormLabel_receiver}" for="receiver"/>
+                <h:selectOneMenu id="receiver" value="#{orderFormController.selected.receiver}"
+                                 title="#{bundle.CreateOrderFormTitle_receiver}" required="true"
+                                 requiredMessage="#{bundle.CreateOrderFormRequiredMessage_receiver}">
+                    <f:selectItems value="#{receiverController.itemsAvailableSelectOne}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <br/>
+            <h:commandLink action="#{orderFormController.create}" value="#{bundle.CreateOrderFormSaveLink}"/>
+            <br/>
+            <br/>
+            <h:commandLink action="#{orderFormController.prepareList}" value="#{bundle.CreateOrderFormShowAllLink}"
+                           immediate="true"/>
+            <br/>
+            <br/>
+            <h:link outcome="/index" value="#{bundle.CreateOrderFormIndexLink}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>

@@ -1,44 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+>
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewReceiverTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_address}"/>
-                    <h:outputText value="#{receiverController.selected.receiverPK.address}" title="#{bundle.ViewReceiverTitle_receiverPK_address}"/>
-                    <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_phoneno}"/>
-                    <h:outputText value="#{receiverController.selected.receiverPK.phoneno}" title="#{bundle.ViewReceiverTitle_receiverPK_phoneno}"/>
-                    <h:outputText value="#{bundle.ViewReceiverLabel_nickname}"/>
-                    <h:outputText value="#{receiverController.selected.nickname}" title="#{bundle.ViewReceiverTitle_nickname}"/>
-                    <h:outputText value="#{bundle.ViewReceiverLabel_account}"/>
-                    <h:outputText value="#{receiverController.selected.account}" title="#{bundle.ViewReceiverTitle_account}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{receiverController.destroyAndView}" value="#{bundle.ViewReceiverDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewReceiverEditLink}"/>
-                <br />
-                <h:commandLink action="#{receiverController.prepareCreate}" value="#{bundle.ViewReceiverCreateLink}" />
-                <br />
-                <h:commandLink action="#{receiverController.prepareList}" value="#{bundle.ViewReceiverShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewReceiverIndexLink}"/>
+<ui:composition template="/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ViewReceiverTitle}"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:panelGroup id="messagePanel" layout="block">
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+        </h:panelGroup>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_address}"/>
+                <h:outputText value="#{receiverController.selected.receiverPK.address}"
+                              title="#{bundle.ViewReceiverTitle_receiverPK_address}"/>
+                <h:outputText value="#{bundle.ViewReceiverLabel_receiverPK_phoneno}"/>
+                <h:outputText value="#{receiverController.selected.receiverPK.phoneno}"
+                              title="#{bundle.ViewReceiverTitle_receiverPK_phoneno}"/>
+                <h:outputText value="#{bundle.ViewReceiverLabel_nickname}"/>
+                <h:outputText value="#{receiverController.selected.nickname}"
+                              title="#{bundle.ViewReceiverTitle_nickname}"/>
+                <h:outputText value="#{bundle.ViewReceiverLabel_account}"/>
+                <h:outputText value="#{receiverController.selected.account}"
+                              title="#{bundle.ViewReceiverTitle_account}"/>
+            </h:panelGrid>
+            <br/>
+            <h:commandLink action="#{receiverController.destroyAndView}" value="#{bundle.ViewReceiverDestroyLink}"/>
+            <br/>
+            <br/>
+            <h:link outcome="Edit" value="#{bundle.ViewReceiverEditLink}"/>
+            <br/>
+            <h:commandLink action="#{receiverController.prepareCreate}" value="#{bundle.ViewReceiverCreateLink}"/>
+            <br/>
+            <h:commandLink action="#{receiverController.prepareList}" value="#{bundle.ViewReceiverShowAllLink}"/>
+            <br/>
+            <br/>
+            <h:link outcome="/index" value="#{bundle.ViewReceiverIndexLink}"/>
 
-            </h:form>
-        </ui:define>
-    </ui:composition>
+        </h:form>
+    </ui:define>
+</ui:composition>
 
 </html>
