@@ -38,6 +38,8 @@
         <hr/>
         <h:link value="MyCart" outcome="/selectedProduct/MyCart" rendered="#{accountController.selected.username!=null}"/>
         <hr/>
+        <h:link value="MyOrder" outcome="/orderForm/MyOrder" rendered="#{accountController.selected.username!=null}"/>
+        <hr/>
         <h:link outcome="/orderForm/List" value="Show All OrderForm Items" rendered="#{accountController.selected.username!=null}"/>
         <br />
         <h:link outcome="/product/List" value="Show All Product Items" rendered="#{accountController.selected.username!=null}"/>
